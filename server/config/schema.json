@@ -1,8 +1,58 @@
 {
   "dataBaseApis": {
+    "createTrip": {
+      "schema": {
+        "url": "/dbApis/createTrip",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    "getTripsForUser": {
+      "schema": {
+        "url": "/dbApis/getTripsForUser",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    "getUsersForTrip": {
+      "schema": {
+        "url": "/dbApis/getUsersForTrip",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "getTripsFromDB": {
       "schema": {
         "url": "/dbApis/getTripsFromDB",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    "getTripsForGuide": {
+      "schema": {
+        "url": "/dbApis/getTripsForGuide",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    "getTripDetails": {
+      "schema": {
+        "url": "/dbApis/getTripDetails",
         "body": {
           "type": "object",
           "properties": {},

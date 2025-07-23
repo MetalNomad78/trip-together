@@ -12,20 +12,22 @@ async function sendMail({
   emailId,
   subject = "Mail sub",
   text = "Hello testing",
+  html,
 }) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: emailId,
     subject,
     text,
+    ...(html && { html }),
   };
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+    console.log("📧 Email sent:", info.response);
     return info;
   } catch (err) {
-    console.error("Email send error:", err);
+    console.error("❌ Email send error:", err);
     throw err;
   }
 }
