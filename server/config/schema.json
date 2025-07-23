@@ -93,6 +93,40 @@
           "required": ["email", "password"]
         }
       }
+    },
+    "guideLogin": {
+      "schema": {
+        "url": "/api/guideLogin",
+        "body": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": ["email", "password"]
+        }
+      }
+    },
+    "guideSignup": {
+      "schema": {
+        "url": "/api/guideSignup",
+        "body": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": ["email", "password", "name", "phoneNumber"]
+        }
+      }
     }
   }
 }
