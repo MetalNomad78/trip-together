@@ -6,36 +6,50 @@ const getUsersForTrip = require("../controllers/getUsersForTrip.js");
 const getTripsForGuide = require("../controllers/getTripsForGuide.js");
 const getTripDetails = require("../controllers/getTripDetails.js");
 
+const {
+  userSignup,
+  userLogin,
+} = require("../controllers/loginSignupController.js");
 async function routes(fastify) {
   fastify.post(
     schema.dataBaseApis["createTrip"].schema.url,
     schema.dataBaseApis["createTrip"],
-    createTrip,
+    createTrip
   );
   fastify.post(
     schema.dataBaseApis["getTripsForGuide"].schema.url,
     schema.dataBaseApis["getTripsForGuide"],
-    getTripsForGuide,
+    getTripsForGuide
   );
   fastify.post(
     schema.dataBaseApis["getTripDetails"].schema.url,
     schema.dataBaseApis["getTripDetails"],
-    getTripDetails,
+    getTripDetails
   );
   fastify.post(
     schema.dataBaseApis["getTripsForUser"].schema.url,
     schema.dataBaseApis["getTripsForUser"],
-    getTripsForUser,
+    getTripsForUser
   );
   fastify.post(
     schema.dataBaseApis["getUsersForTrip"].schema.url,
     schema.dataBaseApis["getUsersForTrip"],
-    getUsersForTrip,
+    getUsersForTrip
   );
   fastify.post(
     schema.dataBaseApis["getTripsFromDB"].schema.url,
     schema.dataBaseApis["getTripsFromDB"],
-    getTrendingTrips,
+    getTrendingTrips
+  );
+  fastify.post(
+    schema.dataBaseApis["userSignup"].schema.url,
+    schema.dataBaseApis["userSignup"],
+    userSignup
+  );
+  fastify.post(
+    schema.dataBaseApis["userLogin"].schema.url,
+    schema.dataBaseApis["userLogin"],
+    userLogin
   );
 }
 

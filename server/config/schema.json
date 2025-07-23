@@ -59,6 +59,40 @@
           "required": []
         }
       }
+    },
+    "userLogin": {
+      "schema": {
+        "url": "/api/userLogin",
+        "body": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": ["email", "password"]
+        }
+      }
+    },
+    "userSignup": {
+      "schema": {
+        "url": "/api/userSignup",
+        "body": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": ["email", "password"]
+        }
+      }
     }
   }
 }
