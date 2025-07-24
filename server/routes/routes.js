@@ -10,6 +10,10 @@ const {
   userSignup,
   userLogin,
 } = require("../controllers/loginSignupController.js");
+const {
+  guideSignup,
+  guideLogin,
+} = require("../controllers/guideLoginSignup.js");
 async function routes(fastify) {
   fastify.post(
     schema.dataBaseApis["createTrip"].schema.url,
@@ -50,6 +54,17 @@ async function routes(fastify) {
     schema.dataBaseApis["userLogin"].schema.url,
     schema.dataBaseApis["userLogin"],
     userLogin,
+
+  );
+  -fastify.post(
+    schema.dataBaseApis["guideSignup"].schema.url,
+    schema.dataBaseApis["guideSignup"],
+    guideSignup,
+  );
+  fastify.post(
+    schema.dataBaseApis["guideLogin"].schema.url,
+    schema.dataBaseApis["guideLogin"],
+    guideLogin,
   );
 }
 
