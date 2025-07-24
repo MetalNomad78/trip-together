@@ -11,10 +11,8 @@ const StoreContextProvider = (props) => {
 
     useEffect(() => {
         async function loadData() {
-            await fetchFoodList();
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
-                await loadCartData({ token: localStorage.getItem("token") })
             }
         }
         loadData()
@@ -24,7 +22,6 @@ const StoreContextProvider = (props) => {
         url,
         token,
         setToken,
-        loadCartData,
         vacation_list
     };
 
