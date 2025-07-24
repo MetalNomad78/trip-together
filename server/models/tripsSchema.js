@@ -2,19 +2,34 @@ const mongoose = require("mongoose");
 
 const tripSchema = new mongoose.Schema(
   {
-    state: {
+    name: {
       type: String,
-      required: true,
       trim: true,
     },
-    status: {
+    location: {
       type: String,
-      enum: ["pending", "ongoing", "completed"],
-      default: "pending",
+      trim: true,
+    },
+    duration: {
+      type: String,
+    },
+    difficulty: {
+      type: String,
+      enum: ["Easy", "Moderate", "Difficult"],
+    },
+    price: {
+      type: String,
+    },
+    highlights: {
+      type: [String],
+      default: [],
+    },
+    state: {
+      type: String,
+      trim: true,
     },
     city: {
       type: String,
-      required: true,
       trim: true,
       lowercase: true,
     },
@@ -24,8 +39,16 @@ const tripSchema = new mongoose.Schema(
     },
     numberOfPeople: {
       type: Number,
-      required: true,
       min: 1,
+    },
+    category: {
+      type: String,
+      // enum: ["adventure", "cultural", "leisure", "wildlife", "religious"],
+    },
+    status: {
+      type: String,
+      enum: ["pending", "ongoing", "completed"],
+      default: "pending",
     },
     guide: {
       type: mongoose.Schema.Types.ObjectId,
