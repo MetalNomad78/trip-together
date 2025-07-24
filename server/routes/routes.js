@@ -5,6 +5,7 @@ const getTripsForUser = require("../controllers/getTripsForUser.js");
 const getUsersForTrip = require("../controllers/getUsersForTrip.js");
 const getTripsForGuide = require("../controllers/getTripsForGuide.js");
 const getTripDetails = require("../controllers/getTripDetails.js");
+const getPopularTripsByCategory = require("../controllers/getTripsByCateogary.js");
 
 const {
   userSignup,
@@ -64,6 +65,11 @@ async function routes(fastify) {
     schema.dataBaseApis["guideLogin"].schema.url,
     schema.dataBaseApis["guideLogin"],
     guideLogin,
+  );
+  fastify.post(
+    schema.dataBaseApis["getTripsByCategory"].schema.url,
+    schema.dataBaseApis["getTripsByCategory"],
+    getPopularTripsByCategory,
   );
 }
 

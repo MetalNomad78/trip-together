@@ -127,6 +127,17 @@
           "required": ["email", "password", "name", "phoneNumber"]
         }
       }
+    },
+    "getTripsByCategory": {
+      "schema": {
+        "url": "/api/getTripsByCategory",
+        "body": {
+          "type": "object",
+          "properties": {
+          },
+           "required": ["category"]
+        }
+      }
     }
   }
 }
