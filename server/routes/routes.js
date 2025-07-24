@@ -15,6 +15,7 @@ const {
   guideSignup,
   guideLogin,
 } = require("../controllers/guideLoginSignup.js");
+const getImageFromText = require("../controllers/getImageFromText.js");
 async function routes(fastify) {
   fastify.post(
     schema.dataBaseApis["createTrip"].schema.url,
@@ -56,7 +57,7 @@ async function routes(fastify) {
     schema.dataBaseApis["userLogin"],
     userLogin,
   );
-  -fastify.post(
+  fastify.post(
     schema.dataBaseApis["guideSignup"].schema.url,
     schema.dataBaseApis["guideSignup"],
     guideSignup,
@@ -70,6 +71,11 @@ async function routes(fastify) {
     schema.dataBaseApis["getTripsByCategory"].schema.url,
     schema.dataBaseApis["getTripsByCategory"],
     getPopularTripsByCategory,
+  );
+  fastify.post(
+    schema.externalApis["getImageFromText"].schema.url,
+    schema.externalApis["getImageFromText"],
+    getImageFromText,
   );
 }
 

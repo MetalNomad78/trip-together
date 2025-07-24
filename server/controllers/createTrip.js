@@ -10,7 +10,7 @@ const logoData = fs.readFileSync(logoPath).toString("base64");
 const base64Logo = `data:image/png;base64,${logoData}`;
 
 async function createTrip(req, res) {
-  const { tripData, userEmails,category} = req.body;
+  const { tripData, userEmails, category } = req.body;
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -42,14 +42,18 @@ async function createTrip(req, res) {
 
     tracker.lastAssignedIndex = nextIndex;
     selectedGuide.tripCount += 1;
-
+    await Guide.updateOne(
+      { _id: selectedGuide._id },
+      { $addToSet: { trips: trip._id } },
+      { session },
+    );
     await tracker.save({ session });
     await selectedGuide.save({ session });
 
     const trip = new Trip({
       ...tripData,
       users: userIds,
-      category:category,
+      category: category,
       guide: selectedGuide._id,
     });
 
