@@ -3,7 +3,10 @@ const axios = require('axios');
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
 const RAPID_API_HOST = 'travel-advisor.p.rapidapi.com';
 
+// Sleep utility
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// Wikipedia fallback
 async function fetchWikipediaDescription(title) {
   try {
     const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
@@ -15,6 +18,7 @@ async function fetchWikipediaDescription(title) {
   }
 }
 
+// Main function
 async function getTripadvisorPlaces(req, res) {
   const { query } = req.body;
 
@@ -40,7 +44,6 @@ async function getTripadvisorPlaces(req, res) {
     const searchRes = await axios.request(searchOptions);
     const items = searchRes.data.data;
 
-    // Filter out low-quality items
     const blacklist = /tour|taxi|driver|car|mall|planner|travel|agency|holidays|private/i;
     const filtered = items
       .filter(
@@ -49,32 +52,15 @@ async function getTripadvisorPlaces(req, res) {
           item.result_object?.photo?.images?.large?.url &&
           !blacklist.test(item.result_object.name)
       )
-      .slice(0, 20); // buffer for failures
+      .slice(0, 20); // buffer in case some fail
 
     const results = [];
 
     for (const item of filtered) {
-      const location_id = item.result_object.location_id;
       const title = item.result_object.name;
       const image = item.result_object.photo.images.large.url;
+      let description = item.result_object.description || null;
 
-      let description = null;
-
-      try {
-        const detailRes = await axios.get(`https://${RAPID_API_HOST}/attractions/get-details`, {
-          params: { location_id },
-          headers: {
-            'X-RapidAPI-Key': RAPID_API_KEY,
-            'X-RapidAPI-Host': RAPID_API_HOST,
-          },
-        });
-
-        description = detailRes.data?.description || null;
-      } catch (detailErr) {
-        console.warn(`Tripadvisor detail fetch failed for ${title}: ${detailErr.message}`);
-      }
-
-      // Fallback to Wikipedia if description is still null and name is valid
       if (!description && !blacklist.test(title)) {
         description = await fetchWikipediaDescription(title);
       }
@@ -83,6 +69,7 @@ async function getTripadvisorPlaces(req, res) {
 
       if (results.length === 10) break;
 
+      await sleep(500); // short delay to avoid Wikipedia rate limits
     }
 
     return results;
