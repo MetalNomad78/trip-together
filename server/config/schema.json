@@ -133,9 +133,8 @@
         "url": "/api/getTripsByCategory",
         "body": {
           "type": "object",
-          "properties": {
-          },
-           "required": ["category"]
+          "properties": {},
+          "required": ["category"]
         }
       }
     }

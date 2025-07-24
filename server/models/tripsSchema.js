@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema(
   {
@@ -15,7 +15,7 @@ const tripSchema = new mongoose.Schema(
     },
     difficulty: {
       type: String,
-      enum: ["Easy", "Moderate", "Difficult"],
+      enum: ['Easy', 'Moderate', 'Difficult'],
     },
     price: {
       type: String,
@@ -47,17 +47,17 @@ const tripSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["pending", "ongoing", "completed"],
-      default: "pending",
+      enum: ['pending', 'ongoing', 'completed'],
+      default: 'pending',
     },
     guide: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Guide",
+      ref: 'Guide',
     },
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
     ],
     startDate: {
@@ -71,12 +71,12 @@ const tripSchema = new mongoose.Schema(
         validator: function (value) {
           return !this.startDate || value > this.startDate;
         },
-        message: "End date must be after start date",
+        message: 'End date must be after start date',
       },
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const Trip = mongoose.model("Trip", tripSchema);
+const Trip = mongoose.model('Trip', tripSchema);
 module.exports = Trip;

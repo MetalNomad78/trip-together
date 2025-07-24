@@ -1,4 +1,4 @@
-const Trip = require("../models/tripsSchema");
+const Trip = require('../models/tripsSchema');
 
 const getPopularTripsByCategory = async (req, res) => {
   try {
@@ -6,16 +6,16 @@ const getPopularTripsByCategory = async (req, res) => {
 
     if (!category) {
       return res.code(400).send({
-        status: "error",
-        message: "Category is required",
+        status: 'error',
+        message: 'Category is required',
       });
     }
 
     const trips = await Trip.aggregate([
-      { $match: { category, status: { $ne: "completed" } } },
+      { $match: { category, status: { $ne: 'completed' } } },
       {
         $addFields: {
-          userCount: { $size: "$users" },
+          userCount: { $size: '$users' },
         },
       },
       { $sort: { userCount: -1 } }, // Always sort by most users
@@ -23,15 +23,15 @@ const getPopularTripsByCategory = async (req, res) => {
     ]);
 
     res.code(200).send({
-      status: "success",
+      status: 'success',
       total: trips.length,
       data: trips,
     });
   } catch (error) {
-    console.error("Error fetching popular trips by category:", error);
+    console.error('Error fetching popular trips by category:', error);
     res.code(500).send({
-      status: "error",
-      message: "Internal Server Error",
+      status: 'error',
+      message: 'Internal Server Error',
     });
   }
 };

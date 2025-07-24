@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const guideSchema = new mongoose.Schema({
   name: {
@@ -25,10 +25,10 @@ const guideSchema = new mongoose.Schema({
   assignedTrips: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Trip",
+      ref: 'Trip',
     },
   ],
 });
 
-const Guide = mongoose.model("Guide", guideSchema);
+const Guide = mongoose.model('Guide', guideSchema);
 module.exports = Guide;
