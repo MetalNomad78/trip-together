@@ -6,7 +6,7 @@ const getTripDetails = async (req, res) => {
     const trip = await Trip.findById(tripId).populate('guide').populate('users').exec();
 
     if (!trip) {
-      return res.status(404).json({
+      return res.status(404).send({
         success: false,
         message: 'Trip not found',
       });
