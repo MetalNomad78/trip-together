@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-content-left">
           
-            <p>Discover the best local restaurants and enjoy delicious meals delivered straight to your doorstep with Tomato. From your favorite comfort food to gourmet cuisine, we bring you a world of flavors, all at your fingertips..</p>
+            <p>Discover the best Trip .</p>
             <div className="footer-social-icons">
                 <img src={assets.facebook_icon} alt="" />
                 <img src={assets.twitter_icon} alt="" />
