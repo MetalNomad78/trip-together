@@ -16,6 +16,7 @@ const {
   guideLogin,
 } = require("../controllers/guideLoginSignup.js");
 const getImageFromText = require("../controllers/getImageFromText.js");
+const getImageFromText = require("../controllers/getImageFromText.js");
 async function routes(fastify) {
   fastify.post(
     schema.dataBaseApis["createTrip"].schema.url,
