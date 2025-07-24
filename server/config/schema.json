@@ -140,6 +140,16 @@
     }
   },
   "externalApis": {
+    "getMostVisitedPlaces": {
+      "schema": {
+        "url": "/ext/getMostVisitedPlaces",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "getImageFromText": {
       "schema": {
         "url": "/ext/getImageFromText",

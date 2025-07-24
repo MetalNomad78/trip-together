@@ -1,30 +1,18 @@
 const axios = require('axios');
+const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 
 async function getImageFromText(req, res) {
-  const { text } = req.body;
-  if (!text) throw new Error('Text query is required');
+  const { query } = req.body;
 
-  const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY;
-  const API_URL = 'https://pixabay.com/api/';
+  const url = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&client_id=${ACCESS_KEY}`;
 
   try {
-    const response = await axios.get(API_URL, {
-      params: {
-        key: PIXABAY_API_KEY,
-        q: text,
-        image_type: 'photo',
-        safesearch: true,
-        per_page: 3,
-      },
-    });
-
-    const hits = response.data.hits;
-    if (!hits || hits.length === 0) throw new Error('No image found');
-
-    return hits[0].webformatURL;
+    const response = await axios.get(url);
+    const imageUrl = response.data?.urls?.regular;
+    return imageUrl || 'No image found';
   } catch (error) {
-    console.error('Pixabay fetch error:', error.message);
-    throw error;
+    console.error('Error fetching image from Unsplash:', error.message);
+    return null;
   }
 }
 

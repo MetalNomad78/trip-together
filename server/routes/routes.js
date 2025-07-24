@@ -10,7 +10,13 @@ const getPopularTripsByCategory = require('../controllers/getTripsByCateogary.js
 const { userSignup, userLogin } = require('../controllers/loginSignupController.js');
 const { guideSignup, guideLogin } = require('../controllers/guideLoginSignup.js');
 const getImageFromText = require('../controllers/getImageFromText.js');
+const getTripadvisorPlaces = require('../controllers/getMostVisitedPlaces.js');
 async function routes(fastify) {
+  fastify.post(
+    schema.externalApis['getMostVisitedPlaces'].schema.url,
+    schema.externalApis['getMostVisitedPlaces'],
+    getTripadvisorPlaces
+  );
   fastify.post(
     schema.dataBaseApis['createTrip'].schema.url,
     schema.dataBaseApis['createTrip'],
