@@ -1,0 +1,404 @@
+.trip-details-container {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.add-trip-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.add-trip-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Image Carousel Styles (same as before) */
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.image-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.image-card-container {
+  position: relative;
+  min-width: 80%;
+  scroll-snap-align: center;
+  border-radius: 15px;
+  overflow: hidden;
+  height: 400px;
+}
+
+.image-card {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transform-origin: center center;
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+}
+
+.image-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+/* Trip Content Styles */
+.trip-content-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.trip-info-section {
+  flex: 2;
+}
+
+.guide-section {
+  flex: 1;
+}
+
+.trip-header {
+  margin-bottom: 30px;
+}
+
+.trip-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.trip-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+  color: #7f8c8d;
+}
+
+.trip-meta i {
+  margin-right: 5px;
+  color: #3498db;
+}
+
+.trip-description h3 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin: 25px 0 15px;
+}
+
+.trip-description p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.trip-highlights {
+  list-style: none;
+  padding-left: 0;
+}
+
+.trip-highlights li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trip-highlights i {
+  color: #2ecc71;
+}
+
+/* Guide Card Styles */
+.guide-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 20px;
+}
+
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.guide-header h3 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.guide-rating {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.guide-profile {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.guide-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3498db;
+}
+
+.guide-info h4 {
+  margin: 0 0 5px;
+  color: #2c3e50;
+}
+
+.guide-info p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.guide-info i {
+  color: #3498db;
+  margin-right: 5px;
+}
+
+.guide-bio {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.contact-guide-btn {
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.contact-guide-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Discussion Section Styles */
+.discussion-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.discussion-section h3 {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.chat-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.empty-chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #95a5a6;
+}
+
+.empty-chat i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.empty-chat p {
+  font-size: 1.1rem;
+}
+
+.message {
+  max-width: 70%;
+  padding: 12px 15px;
+  border-radius: 18px;
+  line-height: 1.4;
+  position: relative;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #3498db;
+  color: white;
+  border-bottom-right-radius: 5px;
+}
+
+.message.guide {
+  align-self: flex-start;
+  background-color: #f1f2f6;
+  color: #2f3542;
+  border-bottom-left-radius: 5px;
+}
+
+.message-time {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.message-input {
+  display: flex;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.message-input input:focus {
+  border-color: #3498db;
+}
+
+.message-input button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.message-input button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .trip-content-container {
+    flex-direction: column;
+  }
+  
+  .trip-title {
+    font-size: 1.8rem;
+  }
+  
+  .guide-card {
+    position: static;
+    margin-top: 30px;
+  }
+  
+  .message {
+    max-width: 85%;
+  }
+}
+
+/* Font Awesome icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');

@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './Pages/Home/Home'
 import CategoryTrips from './Pages/categoryTrips/CategoryTrips'
+import TripDetails from './Pages/tripDetails/tripDetails'
+import AddTripPopup from './components/addTrip/addTrip'
 
 
 const App = () => {
@@ -27,8 +29,15 @@ const App = () => {
       <Footer />
     </> */}
 
-    {/* <Home/> */}
+ <Landing setShowLogin={setShowLogin} />
+    <Home/>
     <CategoryTrips/>
+    <TripDetails/>
+
+    {/* <AddTripPopup/> */}
+   
+    
+    
     </>
   )
 }
