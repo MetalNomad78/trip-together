@@ -18,6 +18,7 @@ async function createTrip(req, res) {
     const users = await User.find({ email: { $in: userEmails } }).session(session);
     const userIds = users.map(u => u._id);
 
+
     if (userIds.length === 0) throw new Error('No users found for the given emails.');
 
     const guides = await Guide.find().sort({ _id: 1 }).session(session);
@@ -36,25 +37,32 @@ async function createTrip(req, res) {
 
     const nextIndex = (tracker.lastAssignedIndex + 1) % guides.length;
     const selectedGuide = guides[nextIndex];
-
-    tracker.lastAssignedIndex = nextIndex;
-    selectedGuide.tripCount += 1;
-    await Guide.updateOne(
-      { _id: selectedGuide._id },
-      { $addToSet: { trips: trip._id } },
-      { session }
-    );
-    await tracker.save({ session });
-    await selectedGuide.save({ session });
+    console.log('Selected Guide1:', selectedGuide);
 
     const trip = new Trip({
-      ...tripData,
+      name: tripData.name,
+      location: tripData.location,
+      duration: tripData.duration,
+      difficulty: tripData.duration,
+      price: tripData.price,
+      description: tripData.description,
+      highlights: tripData.highlights,
       users: userIds,
       category: category,
       guide: selectedGuide._id,
     });
 
+    tracker.lastAssignedIndex = nextIndex;
+    selectedGuide.tripCount += 1;
+      // console.log('Selected Guide Trip Count:', selectedGuide._id);
     await trip.save({ session });
+    const response=await Guide.updateOne(
+      { _id: selectedGuide._id },
+      { $addToSet: { assignedTrips: trip._id } },
+      { session }
+    );
+    await tracker.save({ session });
+    await selectedGuide.save({ session });
 
     await User.updateMany(
       { _id: { $in: userIds } },

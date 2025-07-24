@@ -2,8 +2,7 @@ const Trip = require('../models/tripsSchema.js');
 
 const getTripDetails = async (req, res) => {
   try {
-    const { tripId } = req.params;
-
+    const { tripId } = req.body;
     const trip = await Trip.findById(tripId).populate('guide').populate('users').exec();
 
     if (!trip) {

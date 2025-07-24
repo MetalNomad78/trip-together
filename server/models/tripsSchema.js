@@ -15,7 +15,6 @@ const tripSchema = new mongoose.Schema(
     },
     difficulty: {
       type: String,
-      enum: ['Easy', 'Moderate', 'Difficult'],
     },
     price: {
       type: String,
@@ -62,11 +61,9 @@ const tripSchema = new mongoose.Schema(
     ],
     startDate: {
       type: Date,
-      required: true,
     },
     endDate: {
       type: Date,
-      required: true,
       validate: {
         validator: function (value) {
           return !this.startDate || value > this.startDate;
