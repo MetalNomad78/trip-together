@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import Home from './pages/Home/Home'
+// import Home from './pages/Home/Home'
+import Landing from './Pages/LandingPage/LandingPage'
 import Footer from './components/Footer/Footer'
 import { Route, Routes } from 'react-router-dom'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Home from './Pages/Home/Home'
+import CategoryTrips from './Pages/categoryTrips/CategoryTrips'
 
 
 const App = () => {
@@ -13,15 +16,19 @@ const App = () => {
 
   return (
     <>
-    <ToastContainer/>
+    {/* <ToastContainer/>
     {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
       <div className='app'>
         
         <Routes>
-          <Route path='/' element={<Home setShowLogin={setShowLogin}/>}/>
+          <Route path='/' element={<Landing setShowLogin={setShowLogin}/>}/>
         </Routes>
       </div>
       <Footer />
+    </> */}
+
+    {/* <Home/> */}
+    <CategoryTrips/>
     </>
   )
 }

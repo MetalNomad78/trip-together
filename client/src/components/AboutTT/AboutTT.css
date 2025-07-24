@@ -1,75 +1,206 @@
-.trip-together-section {
-  width: 80%;
-  margin: 50px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-   background-color: #f6f6f6;
+.about-tt {
+  width: 100%;
+  padding: 80px 0;
+  background-color: #f8fafc;
 }
 
-.trip-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 0 20px;
 }
 
-.row-reverse {
-  flex-direction: row-reverse;
-}
-
-.trip-text {
-  flex: 1;
-  min-width: 280px;
-}
-
-.trip-text h2 {
-  font-size: 3.2vw;
+.section-header h2 {
+  font-size: 2.5rem;
   color: #002b11;
+  margin-bottom: 15px;
+  font-weight: 700;
   position: relative;
-  margin-bottom: 20px;
+  display: inline-block;
 }
 
-.trip-text h2::after {
-  content: "";
-  display: block;
-  width: 60px;
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
   height: 4px;
-  background-color: #002b11;
-  margin-top: 10px;
+  background: linear-gradient(90deg, #002b11, #0e5f39);
   border-radius: 2px;
 }
 
-.trip-text p {
-  font-size: 1.5vw;
-  color: #002b11;
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
   line-height: 1.6;
 }
 
-.trip-img {
+.feature-cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.feature-card {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 43, 17, 0.1), 
+              0 10px 15px rgba(0, 43, 17, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 400px; /* Fixed card height */
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 43, 17, 0.15), 
+              0 15px 25px rgba(0, 43, 17, 0.15);
+}
+
+.card-image {
   flex: 1;
-  min-width: 280px;
+  min-width: 0; /* Prevent flex item from growing beyond container */
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(0, 43, 17, 0.1); /* Separation line */
 }
 
-.trip-img img {
+.card-image img {
   width: 100%;
-  border-radius: 10px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-/* Responsive */
+.feature-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  min-width: 0; /* Prevent flex item from growing beyond container */
+}
+
+.content-wrapper {
+  max-width: 500px;
+  width: 100%;
+}
+
+.card-content h3 {
+  font-size: 1.8rem;
+  color: #002b11;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #002b11, #0e5f39);
+  margin-bottom: 25px;
+  border-radius: 2px;
+}
+
+.card-content p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* Reversed layout for alternate cards */
+.reversed {
+  flex-direction: row-reverse;
+}
+
+.reversed .card-image {
+  border-right: none;
+  border-left: 1px solid rgba(0, 43, 17, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .feature-card {
+    flex-direction: column;
+    height: auto; /* Allow height to adjust on smaller screens */
+  }
+  
+  .reversed {
+    flex-direction: column;
+  }
+  
+  .card-image {
+    height: 300px; /* Fixed image height */
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 43, 17, 0.1);
+  }
+  
+  .reversed .card-image {
+    border-left: none;
+    border-bottom: 1px solid rgba(0, 43, 17, 0.1);
+  }
+  
+  .card-content {
+    padding: 30px;
+  }
+}
+
 @media (max-width: 768px) {
-  .trip-row {
-    flex-direction: column !important;
-    text-align: center;
+  .about-tt {
+    padding: 60px 0;
   }
-
-  .trip-text h2 {
-    font-size: 6vw;
+  
+  .section-header h2 {
+    font-size: 2rem;
   }
+  
+  .card-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .card-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .card-image {
+    height: 250px;
+  }
+}
 
-  .trip-text p {
-    font-size: 4vw;
+@media (max-width: 480px) {
+  .about-tt {
+    padding: 40px 0;
+  }
+  
+  .section-header {
+    margin-bottom: 40px;
+  }
+  
+  .feature-cards {
+    gap: 40px;
+  }
+  
+  .card-content {
+    padding: 25px;
+  }
+  
+  .card-image {
+    height: 200px;
   }
 }
