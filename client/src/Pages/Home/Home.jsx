@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
 import CategoryCard from "../../components/categoryCard/categoryCard";
+import AddTripPopup from "../../components/addTrip/addTrip";
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const trendingImagesRef = useRef(null);
+  const [showAddTripPopup, setShowAddTripPopup] = useState(false);
   
   const trendingImages = [
     "/images/trip1.jpg",
@@ -19,7 +21,6 @@ const Home = () => {
     { title: "Adventure Sports", image: "/images/adventure.jpg", description: "Thrill and adrenaline." },
   ];
 
-  // Auto-scroll images every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % trendingImages.length);
@@ -43,9 +44,9 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="header">
-        <button className="add-trip-btn">
-          <span>+</span> Add Trip
-        </button>
+<button className="add-trip-btn" onClick={() => setShowAddTripPopup(true)}>
+  <span>+</span> Add Trip
+</button>
       </div>
 
       <section className="trending-section">
@@ -86,6 +87,18 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      {showAddTripPopup && (
+  <AddTripPopup 
+    onClose={() => setShowAddTripPopup(false)}
+    onSave={(tripData) => {
+      console.log("New trip:", tripData);
+      setShowAddTripPopup(false);
+    }}
+  />
+)}
+
+      
     </div>
   );
 };
