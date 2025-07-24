@@ -133,9 +133,20 @@
         "url": "/api/getTripsByCategory",
         "body": {
           "type": "object",
-          "properties": {
-          },
-           "required": ["category"]
+          "properties": {},
+          "required": ["category"]
+        }
+      }
+    }
+  },
+  "externalApis": {
+    "getImageFromText": {
+      "schema": {
+        "url": "/ext/getImageFromText",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
         }
       }
     }
