@@ -6,10 +6,10 @@ const TripDetails = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
-  const trendingImagesRef = useRef(null);
+  const tripImagesRef = useRef(null);
   
   
-  const trendingImages = [
+  const tripImages = [
     "/images/trip1.jpg",
     "/images/trip2.jpg",
     "/images/trip3.jpg",
@@ -42,17 +42,17 @@ const TripDetails = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % trendingImages.length);
+      setCurrentImageIndex(prev => (prev + 1) % tripImages.length);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [trendingImages.length]);
+  }, [tripImages.length]);
 
   useEffect(() => {
-    if (trendingImagesRef.current) {
-      const imageCard = trendingImagesRef.current.children[currentImageIndex];
+    if (tripImagesRef.current) {
+      const imageCard = tripImagesRef.current.children[currentImageIndex];
       if (imageCard) {
-        trendingImagesRef.current.scrollTo({
+        tripImagesRef.current.scrollTo({
           left: imageCard.offsetLeft - 40,
           behavior: 'smooth'
         });
@@ -98,8 +98,8 @@ const TripDetails = () => {
 
       <section className="trending-section">
         <h2 className="section-title">Trending Now</h2>
-        <div className="image-carousel" ref={trendingImagesRef}>
-          {trendingImages.map((src, index) => (
+        <div className="image-carousel" ref={tripImagesRef}>
+          {tripImages.map((src, index) => (
             <div 
               key={index} 
               className={`image-card-container ${index === currentImageIndex ? 'active' : ''}`}
@@ -113,7 +113,7 @@ const TripDetails = () => {
               />
               <div className="image-overlay"></div>
               <div className="image-indicator">
-                {trendingImages.map((_, i) => (
+                {tripImages.map((_, i) => (
                   <div 
                     key={i} 
                     className={`indicator-dot ${i === currentImageIndex ? 'active' : ''}`}
