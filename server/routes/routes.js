@@ -54,6 +54,7 @@ async function routes(fastify) {
     schema.dataBaseApis["userLogin"].schema.url,
     schema.dataBaseApis["userLogin"],
     userLogin,
+
   );
   -fastify.post(
     schema.dataBaseApis["guideSignup"].schema.url,

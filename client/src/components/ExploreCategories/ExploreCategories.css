@@ -1,0 +1,57 @@
+.explore-vacation{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 92%;
+    margin: auto;
+}
+.explore-vacation h1{
+    color: #002b11;
+    font-weight: 500;
+}
+.explore-vacation-text{
+    max-width: 60%;
+    color: #002b11;
+}
+.explore-vacation-list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    gap: 20px;
+    text-align: center;
+    margin: 20px 0px;
+    overflow-x: scroll;
+}
+.explore-vacation-list::-webkit-scrollbar{
+    display: none;
+}
+.explore-vacation-list-item img{
+    width: 20.5vw;
+    min-width: 80px;
+    cursor: pointer;
+    border-radius: 10%;
+    transition: 0.2s;
+    /* background-color: aqua; */
+}
+.explore-vacation-list-item .active{
+    border: 4px solid #002b11;
+    padding: 2px;
+}
+.explore-vacation-list-item p{
+    margin-top: 10px;
+    color: #002b11;
+    font-size: max(1.4vw,16px);
+    cursor: pointer;
+}
+.explore-vacation hr{
+    margin: 10px 0px;
+    height: 2px;
+    background-color: #E2E2E2;
+    border: none;
+}
+@media (max-width:1050px) {
+    .explore-vacation-text{
+        max-width: 100%;
+        font-size: 14px;
+    }
+}

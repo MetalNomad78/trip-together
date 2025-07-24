@@ -1,0 +1,75 @@
+.trip-together-section {
+  width: 80%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+   background-color: #f6f6f6;
+}
+
+.trip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.trip-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.trip-text h2 {
+  font-size: 3.2vw;
+  color: #002b11;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.trip-text h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #002b11;
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+.trip-text p {
+  font-size: 1.5vw;
+  color: #002b11;
+  line-height: 1.6;
+}
+
+.trip-img {
+  flex: 1;
+  min-width: 280px;
+}
+
+.trip-img img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trip-row {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .trip-text h2 {
+    font-size: 6vw;
+  }
+
+  .trip-text p {
+    font-size: 4vw;
+  }
+}
