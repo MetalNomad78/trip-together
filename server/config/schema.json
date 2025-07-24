@@ -1,5 +1,15 @@
 {
   "dataBaseApis": {
+    "addTripToUser": {
+      "schema": {
+        "url": "/dbApis/addTripToUser",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "createTrip": {
       "schema": {
         "url": "/dbApis/createTrip",
