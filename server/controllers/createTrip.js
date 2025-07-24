@@ -42,7 +42,11 @@ async function createTrip(req, res) {
 
     tracker.lastAssignedIndex = nextIndex;
     selectedGuide.tripCount += 1;
-
+    await Guide.updateOne(
+      { _id: selectedGuide._id },
+      { $addToSet: { trips: trip._id } },
+      { session },
+    );
     await tracker.save({ session });
     await selectedGuide.save({ session });
 

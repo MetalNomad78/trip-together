@@ -128,5 +128,17 @@
         }
       }
     }
+  },
+  "externalApis": {
+    "getImageFromText": {
+      "schema": {
+        "url": "/ext/getImageFromText",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
   }
 }
