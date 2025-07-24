@@ -10,7 +10,7 @@ const logoData = fs.readFileSync(logoPath).toString("base64");
 const base64Logo = `data:image/png;base64,${logoData}`;
 
 async function createTrip(req, res) {
-  const { tripData, userEmails } = req.body;
+  const { tripData, userEmails,category} = req.body;
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -53,6 +53,7 @@ async function createTrip(req, res) {
     const trip = new Trip({
       ...tripData,
       users: userIds,
+      category:category,
       guide: selectedGuide._id,
     });
 
