@@ -1,67 +1,73 @@
-const mongoose = require("mongoose");
-const Trip = require("../models/tripsSchema");
-const User = require("../models/userSchema");
-const Guide = require("../models/guideSchema");
-const AssignmentTracker = require("../models/assignmentTrackerSchema");
-const fs = require("fs");
-const path = require("path");
-const logoPath = path.join(__dirname, "../assets/tt_logo.png");
-const logoData = fs.readFileSync(logoPath).toString("base64");
+const mongoose = require('mongoose');
+const Trip = require('../models/tripsSchema');
+const User = require('../models/userSchema');
+const Guide = require('../models/guideSchema');
+const AssignmentTracker = require('../models/assignmentTrackerSchema');
+const fs = require('fs');
+const path = require('path');
+const logoPath = path.join(__dirname, '../assets/tt_logo.png');
+const logoData = fs.readFileSync(logoPath).toString('base64');
 const base64Logo = `data:image/png;base64,${logoData}`;
 
 async function createTrip(req, res) {
-  const { tripData, userEmails } = req.body;
+  const { tripData, userEmails, category } = req.body;
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
-    const users = await User.find({ email: { $in: userEmails } }).session(
-      session,
-    );
-    const userIds = users.map((u) => u._id);
+    const users = await User.find({ email: { $in: userEmails } }).session(session);
+    const userIds = users.map(u => u._id);
 
-    if (userIds.length === 0)
-      throw new Error("No users found for the given emails.");
+
+    if (userIds.length === 0) throw new Error('No users found for the given emails.');
 
     const guides = await Guide.find().sort({ _id: 1 }).session(session);
-    if (guides.length === 0) throw new Error("No guides available.");
+    if (guides.length === 0) throw new Error('No guides available.');
 
     let tracker = await AssignmentTracker.findOne({
-      key: "guideRoundRobin",
+      key: 'guideRoundRobin',
     }).session(session);
     if (!tracker) {
       tracker = await AssignmentTracker.create(
-        [{ key: "guideRoundRobin", lastAssignedIndex: -1 }],
-        { session },
+        [{ key: 'guideRoundRobin', lastAssignedIndex: -1 }],
+        { session }
       );
       tracker = tracker[0];
     }
 
     const nextIndex = (tracker.lastAssignedIndex + 1) % guides.length;
     const selectedGuide = guides[nextIndex];
+    console.log('Selected Guide1:', selectedGuide);
+
+    const trip = new Trip({
+      name: tripData.name,
+      location: tripData.location,
+      duration: tripData.duration,
+      difficulty: tripData.duration,
+      price: tripData.price,
+      description: tripData.description,
+      highlights: tripData.highlights,
+      users: userIds,
+      category: category,
+      guide: selectedGuide._id,
+    });
 
     tracker.lastAssignedIndex = nextIndex;
     selectedGuide.tripCount += 1;
-    await Guide.updateOne(
+      // console.log('Selected Guide Trip Count:', selectedGuide._id);
+    await trip.save({ session });
+    const response=await Guide.updateOne(
       { _id: selectedGuide._id },
-      { $addToSet: { trips: trip._id } },
-      { session },
+      { $addToSet: { assignedTrips: trip._id } },
+      { session }
     );
     await tracker.save({ session });
     await selectedGuide.save({ session });
 
-    const trip = new Trip({
-      ...tripData,
-      users: userIds,
-      guide: selectedGuide._id,
-    });
-
-    await trip.save({ session });
-
     await User.updateMany(
       { _id: { $in: userIds } },
       { $addToSet: { trips: trip._id } },
-      { session },
+      { session }
     );
 
     await session.commitTransaction();
@@ -69,14 +75,14 @@ async function createTrip(req, res) {
     try {
       await sendGuideAndUserEmails();
     } catch (error) {
-      console.log("Error in sending EMAIL to guide and user", error);
+      console.log('Error in sending EMAIL to guide and user', error);
     }
-    console.log("✅ Trip created successfully with guide and users.");
+    console.log('✅ Trip created successfully with guide and users.');
     return res.code(200).send(trip);
   } catch (err) {
     await session.abortTransaction();
     session.endSession();
-    console.error("❌ Error creating trip:", err);
+    console.error('❌ Error creating trip:', err);
     return res.code(200).send(err);
   }
 }
@@ -87,14 +93,14 @@ async function sendGuideAndUserEmails({ state, city, guideEmail, userEmails }) {
 
   await sendMail({
     emailId: guideEmail,
-    subject: "You’ve been assigned a new trip!",
+    subject: 'You’ve been assigned a new trip!',
     html: guideHtml,
   });
 
   for (const userEmail of userEmails) {
     await sendMail({
       emailId: userEmail,
-      subject: "Your trip has been created!",
+      subject: 'Your trip has been created!',
       html: userHtml,
     });
   }

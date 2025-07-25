@@ -1,20 +1,34 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema(
   {
-    state: {
+    name: {
       type: String,
-      required: true,
       trim: true,
     },
-    status: {
+    location: {
       type: String,
-      enum: ["pending", "ongoing", "completed"],
-      default: "pending",
+      trim: true,
+    },
+    duration: {
+      type: String,
+    },
+    difficulty: {
+      type: String,
+    },
+    price: {
+      type: String,
+    },
+    highlights: {
+      type: [String],
+      default: [],
+    },
+    state: {
+      type: String,
+      trim: true,
     },
     city: {
       type: String,
-      required: true,
       trim: true,
       lowercase: true,
     },
@@ -24,36 +38,42 @@ const tripSchema = new mongoose.Schema(
     },
     numberOfPeople: {
       type: Number,
-      required: true,
       min: 1,
+    },
+    category: {
+      type: String,
+      // enum: ["adventure", "cultural", "leisure", "wildlife", "religious"],
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'ongoing', 'completed'],
+      default: 'pending',
     },
     guide: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Guide",
+      ref: 'Guide',
     },
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
       },
     ],
     startDate: {
       type: Date,
-      required: true,
     },
     endDate: {
       type: Date,
-      required: true,
       validate: {
         validator: function (value) {
           return !this.startDate || value > this.startDate;
         },
-        message: "End date must be after start date",
+        message: 'End date must be after start date',
       },
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const Trip = mongoose.model("Trip", tripSchema);
+const Trip = mongoose.model('Trip', tripSchema);
 module.exports = Trip;

@@ -1,5 +1,15 @@
 {
   "dataBaseApis": {
+    "addTripToUser": {
+      "schema": {
+        "url": "/dbApis/addTripToUser",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "createTrip": {
       "schema": {
         "url": "/dbApis/createTrip",
@@ -127,9 +137,29 @@
           "required": ["email", "password", "name", "phoneNumber"]
         }
       }
+    },
+    "getTripsByCategory": {
+      "schema": {
+        "url": "/api/getTripsByCategory",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": ["category"]
+        }
+      }
     }
   },
   "externalApis": {
+    "getMostVisitedPlaces": {
+      "schema": {
+        "url": "/ext/getMostVisitedPlaces",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "getImageFromText": {
       "schema": {
         "url": "/ext/getImageFromText",
