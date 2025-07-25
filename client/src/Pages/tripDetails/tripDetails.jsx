@@ -97,7 +97,7 @@ const TripDetails = () => {
     <div className="trip-details-container">
 
       <section className="trending-section">
-        <h2 className="section-title">Trending Now</h2>
+        <h2 className="section-title">Snap shots</h2>
         <div className="image-carousel" ref={tripImagesRef}>
           {tripImages.map((src, index) => (
             <div 

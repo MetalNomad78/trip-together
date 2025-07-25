@@ -18,7 +18,6 @@ async function createTrip(req, res) {
     const users = await User.find({ email: { $in: userEmails } }).session(session);
     const userIds = users.map(u => u._id);
 
-
     if (userIds.length === 0) throw new Error('No users found for the given emails.');
 
     const guides = await Guide.find().sort({ _id: 1 }).session(session);
@@ -54,9 +53,9 @@ async function createTrip(req, res) {
 
     tracker.lastAssignedIndex = nextIndex;
     selectedGuide.tripCount += 1;
-      // console.log('Selected Guide Trip Count:', selectedGuide._id);
+    // console.log('Selected Guide Trip Count:', selectedGuide._id);
     await trip.save({ session });
-    const response=await Guide.updateOne(
+    const response = await Guide.updateOne(
       { _id: selectedGuide._id },
       { $addToSet: { assignedTrips: trip._id } },
       { session }
