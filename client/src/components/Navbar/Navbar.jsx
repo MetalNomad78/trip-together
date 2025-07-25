@@ -1,14 +1,18 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { StoreContext } from '../../Context/StoreContext';
 import { FaSearch, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) setToken(storedToken);
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -43,7 +47,7 @@ const Navbar = ({ setShowLogin }) => {
           </li>
           <li>
             <a 
-              href='#explore-menu' 
+              href="#explore-menu" 
               onClick={() => { setMenu("menu"); setMobileMenuOpen(false); }} 
               className={`navbar-link ${menu === "menu" ? "active" : ""}`}
             >
@@ -52,7 +56,7 @@ const Navbar = ({ setShowLogin }) => {
           </li>
           <li>
             <a 
-              href='#app-download' 
+              href="#app-download" 
               onClick={() => { setMenu("mob-app"); setMobileMenuOpen(false); }} 
               className={`navbar-link ${menu === "mob-app" ? "active" : ""}`}
             >
@@ -61,7 +65,7 @@ const Navbar = ({ setShowLogin }) => {
           </li>
           <li>
             <a 
-              href='#footer' 
+              href="#footer" 
               onClick={() => { setMenu("contact"); setMobileMenuOpen(false); }} 
               className={`navbar-link ${menu === "contact" ? "active" : ""}`}
             >
@@ -69,11 +73,12 @@ const Navbar = ({ setShowLogin }) => {
             </a>
           </li>
         </ul>
+
         <div className="navbar-right">
           <div className="search-icon">
             <FaSearch />
           </div>
-          
+
           {!token ? (
             <button 
               className="auth-button sign-in" 
