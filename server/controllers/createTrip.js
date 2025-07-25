@@ -136,8 +136,6 @@ const generateUserHtml = ({ location }) => `
   </div>
 `;
 
-
-
 const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 
 async function getImageFromText(reqBody) {
