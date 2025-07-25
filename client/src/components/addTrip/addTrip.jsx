@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./addTrip.css";
+import axios from 'axios';
 
 const AddTripPopup = ({ onClose, onSave }) => {
   const [tripData, setTripData] = useState({
@@ -9,13 +10,39 @@ const AddTripPopup = ({ onClose, onSave }) => {
     difficulty: "Moderate",
     price: "",
     description: "",
+    category: "Mountain Escape",
     highlights: [""],
     images: []
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentHighlight, setCurrentHighlight] = useState("");
   const [imagePreviews, setImagePreviews] = useState([]);
-  
+
+  const categories = {
+    "Beach Getaway": "beach_getaway",
+    "Mountain Escape": "mountain_escape",
+    "Cultural Exploration": "cultural_exploration",
+    "Wildlife Safari": "wildlife_safari",
+    "Adventure Sports": "adventure_sports",
+    "Spiritual Retreat": "spiritual_retreat",
+    "Desert Expedition": "desert_expedition",
+    "Backpacking Adventure": "backpacking_adventure"
+  };
+
+  const getUserEmail = () => {
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+      try {
+        const parsedInfo = JSON.parse(userInfo);
+        return parsedInfo.email;
+      } catch (error) {
+        console.error('Error parsing userInfo:', error);
+        return null;
+      }
+    }
+    return null;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,20 +95,66 @@ const AddTripPopup = ({ onClose, onSave }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+   
     if (!tripData.name || !tripData.location || !tripData.description) {
       alert("Please fill in all required fields");
       return;
     }
-    onSave(tripData);
-    onClose();
+    const userEmail = getUserEmail();
+    if (!userEmail) {
+      alert("User email not found. Please login again.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = {
+        category: categories[tripData.category],
+        userEmails: [userEmail],
+        tripData: {
+          name: tripData.name,
+          location: tripData.location,
+          duration: tripData.duration,
+          difficulty: tripData.difficulty,
+          price: tripData.price,
+          description: tripData.description,
+          highlights: tripData.highlights.filter(h => h),
+        }
+      };
+      const authToken = localStorage.getItem('authToken');
+
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/dbApis/createTrip`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+
+      if (response.data && response.data._id) {
+        onSave(tripData); 
+        onClose();
+      } else {
+        throw new Error(response.data.message || 'Failed to create trip');
+      }
+    } catch (error) {
+      console.error('Error creating trip:', error);
+      alert(error.response?.data?.message || error.message || 'Failed to create trip. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="popup-overlay">
       <div className="add-trip-popup">
         <div className="popup-header">
+          <h2>Add New Trip</h2>
+          <button className="close-btn" onClick={onClose}>
+            &times;
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="trip-form">
@@ -121,6 +194,21 @@ const AddTripPopup = ({ onClose, onSave }) => {
                   onChange={handleChange}
                   placeholder="e.g. 5 Days / 4 Nights"
                 />
+              </div>
+
+              <div className="form-group">
+                <label>Category</label>
+                <select
+                  name="category"
+                  value={tripData.category}
+                  onChange={handleChange}
+                >
+                  {Object.keys(categories).map((category, index) => (
+                    <option key={index} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="form-group">
@@ -229,11 +317,26 @@ const AddTripPopup = ({ onClose, onSave }) => {
           </div>
 
           <div className="form-actions">
-            <button type="button" className="cancel-btn" onClick={onClose}>
+            <button 
+              type="button" 
+              className="cancel-btn" 
+              onClick={onClose} 
+              disabled={isSubmitting}
+            >
               Cancel
             </button>
-            <button type="submit" className="save-btn">
-              Save Trip
+            <button 
+              type="submit" 
+              className="save-btn" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <i className="fas fa-spinner fa-spin"></i> Saving...
+                </>
+              ) : (
+                "Save Trip"
+              )}
             </button>
           </div>
         </form>

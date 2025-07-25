@@ -88,7 +88,6 @@ const categories = [
         </div>
       </section>
       </div>
-      <Footer/>
     </div>
   );
 };

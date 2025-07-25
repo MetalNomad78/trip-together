@@ -1,13 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./guideRegistration.css";
-import { StoreContext } from "../../Context/StoreContext";
 
 const GuideRegistration = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const { setToken, url } = useContext(StoreContext);
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -18,6 +15,9 @@ const GuideRegistration = () => {
     image: "",
     bio: "",
   });
+
+  // Define your base URL here or use an environment variable
+  const url = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,9 +48,8 @@ const GuideRegistration = () => {
       const response = await axios.post(`${url}${endpoint}`, payload);
 
       if (response.data.token) {
-        setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        toast.success(response.data.message);
+        toast.success(response.data.message || "Login successful!");
         // Optionally redirect or reset form
       } else {
         toast.error(response.data.message || "Something went wrong");

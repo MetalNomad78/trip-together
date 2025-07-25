@@ -31,7 +31,6 @@ const DynamicVideos = ({ setShowLogin }) => {
 
   return (
     <div className="dynamic-videos">
-      <Navbar setShowLogin={setShowLogin} />
       <video
         key={currentVideoIndex}
         className={`video-bg ${isVideoLoaded ? 'loaded' : ''}`}

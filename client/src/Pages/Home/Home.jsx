@@ -54,7 +54,7 @@ const categories = [
   { title: "Historical Sites", image: "https://c.ndtvimg.com/gws/ms/historical-places-to-explore-in-south-india/assets/4.jpeg?1730213494", description: "Walk through history." },
   { title: "Adventure Sports", image: "https://plus.unsplash.com/premium_photo-1661923734776-1a0417fb6a9f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZXh0cmVtZSUyMHNwb3J0c3xlbnwwfHwwfHx8MA%3D%3D", description: "Thrill and adrenaline." },
 
-  { title: "Cultural Tours", image: "https://www.goldentriangletoursinindia.com/images/goldentriangletoursinindia.jpg", description: "Experience India's diverse traditions." },
+  { title: "Cultural ", image: "https://www.goldentriangletoursinindia.com/images/goldentriangletoursinindia.jpg", description: "Experience India's diverse traditions." },
   { title: "Wildlife Safari", image: "https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg?cs=srgb&dl=pexels-pixabay-247376.jpg&fm=jpg", description: "Explore the wild and see exotic animals." },
   { title: "Desert Experience", image: "https://images.wanderon.in/blogs/new/2024/05/desert-safari-in-jaisalmer.jpg", description: "Camel rides, dunes & folk dances." },
   { title: "Pilgrimage", image: "https://www.nickkembel.com/wp-content/uploads/2019/01/pilgrimage-sites-india-header.jpg", description: "Visit sacred temples and spiritual spots." },
