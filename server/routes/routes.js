@@ -13,8 +13,14 @@ const getImageFromText = require('../controllers/getImageFromText.js');
 const getTripadvisorPlaces = require('../controllers/getMostVisitedPlaces.js');
 const addTripToUser = require('../controllers/addTripToUser.js');
 const { geminiFetch } = require('../controllers/geminiApi.js');
+const getAllGuides = require('../controllers/getAllGuides.js');
 
 async function routes(fastify) {
+  fastify.post(
+    schema.dataBaseApis['getAllGuides'].schema.url,
+    schema.dataBaseApis['getAllGuides'],
+    getAllGuides
+  );
   fastify.post(
     schema.externalApis['geminiApi'].schema.url,
     schema.externalApis['geminiApi'],

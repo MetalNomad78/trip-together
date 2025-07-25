@@ -1,5 +1,15 @@
 {
   "dataBaseApis": {
+    "getAllGuides": {
+      "schema": {
+        "url": "/dbApis/getAllGuides",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "addTripToUser": {
       "schema": {
         "url": "/dbApis/addTripToUser",
