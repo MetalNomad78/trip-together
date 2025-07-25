@@ -160,6 +160,16 @@
         }
       }
     },
+    "geminiApi": {
+      "schema": {
+        "url": "/ext/geminiApi",
+        "body": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
     "getImageFromText": {
       "schema": {
         "url": "/ext/getImageFromText",
