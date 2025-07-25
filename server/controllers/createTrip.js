@@ -5,13 +5,30 @@ const Guide = require('../models/guideSchema');
 const AssignmentTracker = require('../models/assignmentTrackerSchema');
 const sendMail = require('../utils/emailServiceUtil');
 const axios = require('axios');
+const { callGeminiApi } = require('./geminiApi');
 
 async function createTrip(req, res) {
-  const { tripData, userEmails, category } = req.body;
+  let { tripData, userEmails, category, description } = req.body;
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
+    let tripDetails;
+    if (!tripData) {
+      tripDetails = await callGeminiApi(description);
+      tripData = {
+        itenary: tripDetails.daily_plan,
+        name: tripDetails.itinerary_title,
+        location: tripDetails.location,
+        duration: tripDetails.duration,
+        difficulty: tripDetails.difficulty,
+        price: tripDetails.approx_budget_inr,
+        description: tripDetails.description,
+        highlights: tripDetails.highlights,
+        category: tripDetails.category,
+      };
+    }
+
     const users = await User.find({ email: { $in: userEmails } }).session(session);
     const userIds = users.map(u => u._id);
 
@@ -39,7 +56,7 @@ async function createTrip(req, res) {
       name: tripData.name,
       location: tripData.location,
       duration: tripData.duration,
-      difficulty: tripData.duration,
+      difficulty: tripData.difficulty,
       price: tripData.price,
       description: tripData.description,
       highlights: tripData.highlights,
@@ -51,7 +68,6 @@ async function createTrip(req, res) {
 
     tracker.lastAssignedIndex = nextIndex;
     selectedGuide.tripCount += 1;
-    // console.log('Selected Guide Trip Count:', selectedGuide._id);
     await trip.save({ session });
     const response = await Guide.updateOne(
       { _id: selectedGuide._id },
@@ -71,7 +87,7 @@ async function createTrip(req, res) {
     session.endSession();
     try {
       await sendGuideAndUserEmails({
-        location: tripData.location,
+        location: `${tripData?.location?.city} , ${tripData?.location?.state}`,
         guideEmail: selectedGuide.email,
         userEmails: userEmails,
       });

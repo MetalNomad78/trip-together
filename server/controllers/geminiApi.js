@@ -4,7 +4,10 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 async function geminiFetch(req, res) {
   const { prompt } = req.body;
+  return await callGeminiApi(prompt);
+}
 
+const callGeminiApi = async prompt => {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`;
 
   const headers = {
@@ -42,6 +45,42 @@ async function geminiFetch(req, res) {
         ],
         description: 'The category that best describes this itinerary from the predefined list.',
       },
+      trip_difficulty: {
+        type: 'string',
+        enum: ['easy', 'moderate', 'challenging', 'extreme'],
+        description: 'The overall difficulty level of the trip.',
+      },
+      duration_days: {
+        type: 'integer',
+        description: 'The total duration of the trip in number of days.',
+        minimum: 1,
+      },
+      highlights: {
+        type: 'array',
+        description: 'A list of key attractions or experiences of the trip.',
+        items: {
+          type: 'string',
+        },
+      },
+      location: {
+        type: 'object',
+        description: 'The geographical location of the primary destination.',
+        properties: {
+          city: {
+            type: 'string',
+            description: 'The city of the primary destination.',
+          },
+          state: {
+            type: 'string',
+            description: 'The state/province of the primary destination.',
+          },
+          country: {
+            type: 'string',
+            description: 'The country of the primary destination.',
+          },
+        },
+        required: ['city', 'state'],
+      },
       daily_plan: {
         type: 'array',
         description: 'A list of daily activities for the itinerary.',
@@ -64,7 +103,17 @@ async function geminiFetch(req, res) {
         },
       },
     },
-    required: ['itinerary_title', 'description', 'approx_budget_inr', 'category', 'daily_plan'],
+    required: [
+      'itinerary_title',
+      'description',
+      'approx_budget_inr',
+      'category',
+      'trip_difficulty',
+      'duration_days',
+      'highlights',
+      'location',
+      'daily_plan',
+    ],
   };
 
   const data = {
@@ -101,7 +150,7 @@ async function geminiFetch(req, res) {
       response.data.candidates[0].content.parts[0].text
     ) {
       const jsonStringOutput = response.data.candidates[0].content.parts[0].text;
-
+      console.log('GEMINI RESPONSE', jsonStringOutput);
       try {
         const parsedJson = JSON.parse(jsonStringOutput);
         return parsedJson;
@@ -123,6 +172,6 @@ async function geminiFetch(req, res) {
     }
     return null;
   }
-}
+};
 
-module.exports = geminiFetch;
+module.exports = { geminiFetch, callGeminiApi };

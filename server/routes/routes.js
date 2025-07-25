@@ -12,12 +12,13 @@ const { guideSignup, guideLogin } = require('../controllers/guideLoginSignup.js'
 const getImageFromText = require('../controllers/getImageFromText.js');
 const getTripadvisorPlaces = require('../controllers/getMostVisitedPlaces.js');
 const addTripToUser = require('../controllers/addTripToUser.js');
-const geminiAPI = require('../controllers/geminiApi.js');
+const { geminiFetch } = require('../controllers/geminiApi.js');
+
 async function routes(fastify) {
   fastify.post(
     schema.externalApis['geminiApi'].schema.url,
     schema.externalApis['geminiApi'],
-    geminiAPI
+    geminiFetch
   );
   fastify.post(
     schema.dataBaseApis['addTripToUser'].schema.url,
