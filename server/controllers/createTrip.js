@@ -51,7 +51,7 @@ async function createTrip(req, res) {
     const nextIndex = (tracker.lastAssignedIndex + 1) % guides.length;
     const selectedGuide = guides[nextIndex];
     console.log('Selected Guide1:', selectedGuide);
-    const tripImageUrl = await getImageFromText({ query: tripData.location });
+    const tripImageUrl = await getImageFromText({ query: tripData.location.city });
     const trip = new Trip({
       name: tripData.name,
       location: tripData.location,
