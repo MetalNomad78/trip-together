@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { RiCompassDiscoverLine } from 'react-icons/ri';
 import './Navbar.css';
 
 const Navbar = ({ setShowLogin }) => {
-  const [menu, setMenu] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const navigate = useNavigate();
@@ -16,8 +16,9 @@ const Navbar = ({ setShowLogin }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     setToken("");
-    navigate('/');
+    navigate('/home');
     setMobileMenuOpen(false);
   };
 
@@ -28,49 +29,30 @@ const Navbar = ({ setShowLogin }) => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo" onClick={() => setMenu("home")}>
-          <span className="logo-highlight">Trip</span>Together
+        <Link to="/" className="navbar-logo">
+          <RiCompassDiscoverLine className="logo-icon" />
+          <span>TripTogether</span>
         </Link>
+
         <div className="mobile-menu-icon" onClick={toggleMobileMenu}>
           {mobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
         <ul className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
           <li>
-            <Link 
-              to="/" 
-              onClick={() => { setMenu("home"); setMobileMenuOpen(false); }} 
-              className={`navbar-link ${menu === "home" ? "active" : ""}`}
-            >
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
               Home
             </Link>
           </li>
           <li>
-            <a 
-              href="#explore-menu" 
-              onClick={() => { setMenu("menu"); setMobileMenuOpen(false); }} 
-              className={`navbar-link ${menu === "menu" ? "active" : ""}`}
-            >
-              Destinations
-            </a>
+            <Link to="/trips" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+              Trips
+            </Link>
           </li>
           <li>
-            <a 
-              href="#app-download" 
-              onClick={() => { setMenu("mob-app"); setMobileMenuOpen(false); }} 
-              className={`navbar-link ${menu === "mob-app" ? "active" : ""}`}
-            >
-              Mobile App
-            </a>
-          </li>
-          <li>
-            <a 
-              href="#footer" 
-              onClick={() => { setMenu("contact"); setMobileMenuOpen(false); }} 
-              className={`navbar-link ${menu === "contact" ? "active" : ""}`}
-            >
-              Contact
-            </a>
+            <Link to="/guides" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+              Guides
+            </Link>
           </li>
         </ul>
 
@@ -79,19 +61,21 @@ const Navbar = ({ setShowLogin }) => {
             <FaSearch />
           </div>
 
-          {!token ? (
-            <button 
-              className="auth-button sign-in" 
-              onClick={() => setShowLogin(true)}
-            >
-              <FaUserCircle /> Sign In
-            </button>
+          {token ? (
+            <div className="user-dropdown">
+              <button className="user-button">
+                <FaUserCircle />
+              </button>
+              <div className="dropdown-content">
+                <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>Profile</Link>
+                <button onClick={logout} className="logout-button">
+                  <FaSignOutAlt /> Logout
+                </button>
+              </div>
+            </div>
           ) : (
-            <button 
-              className="auth-button logout" 
-              onClick={logout}
-            >
-              <FaSignOutAlt /> Logout
+            <button className="auth-button" onClick={() => setShowLogin(true)}>
+              <FaUserCircle /> Sign In
             </button>
           )}
         </div>

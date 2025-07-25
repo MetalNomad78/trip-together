@@ -3,32 +3,56 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./CategoryTrips.css";
 
-const CategoryIntroCard = ({ trip }) => {
+const CategoryTripCard = ({ trip }) => {
+  // Handle location data which can be string or object
+  const getLocationString = () => {
+    if (typeof trip.location === 'string') return trip.location;
+    if (trip.location?.city && trip.location?.state) {
+      return `${trip.location.city}, ${trip.location.state}`;
+    }
+    return 'Location not specified';
+  };
+
   return (
-    <div className="trip-card">
+    <div className="category-trip-card">
       <div className="trip-image-container">
         <img 
           src={trip.imageUrl || "/images/default-trip.jpg"} 
           alt={trip.name} 
-          className="trip-image" 
+          className="trip-image"
+          loading="lazy"
         />
-        <div className="trip-overlay"></div>
+        <div className="image-overlay"></div>
       </div>
+      
       <div className="trip-content">
-        <h3 className="trip-name">{trip.name}</h3>
-        <p className="trip-description">{trip.description}</p>
+        <div className="trip-header">
+          <h3 className="trip-name">{trip.name}</h3>
+          <span className="trip-price">{trip.price || 'Price not specified'}</span>
+        </div>
+        
+        <p className="trip-description">
+          {trip.description || 'No description available'}
+        </p>
+        
         <div className="trip-meta">
-          <span className="users-count">
+          <span className="meta-item">
+            <i className="fas fa-map-marker-alt"></i> {getLocationString()}
+          </span>
+          <span className="meta-item">
             <i className="fas fa-users"></i> {trip.userCount || 0} registered
           </span>
-          <span className="location">
-            <i className="fas fa-map-marker-alt"></i> {trip.location}
-          </span>
-          <span className="price">
-            <i className="fas fa-rupee-sign"></i> {trip.price}
-          </span>
+          {trip.duration && (
+            <span className="meta-item">
+              <i className="fas fa-clock"></i> {trip.duration}
+            </span>
+          )}
         </div>
-        <button className="explore-btn">Explore</button>
+        
+        <button className="explore-button">
+          Explore Trip
+          <i className="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   );
@@ -80,7 +104,7 @@ const CategoryTrips = () => {
       );
 
       if (response.data && response.data.status === "success") {
-        setTrips(response.data.data); // Changed from response.data.trips to response.data.data
+        setTrips(response.data.data);
       } else {
         setError(response.data?.message || "No trips found for this category");
         setTrips([]);
@@ -126,7 +150,7 @@ const CategoryTrips = () => {
       </div>
       <div className="trips-grid">
         {trips.length > 0 ? (
-          trips.map((trip) => <CategoryIntroCard key={trip._id} trip={trip} />)
+          trips.map((trip) => <CategoryTripCard key={trip._id} trip={trip} />)
         ) : (
           <div className="no-trips-message">
             No trips found for this category. Check back later!
