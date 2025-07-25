@@ -8,7 +8,7 @@ const axios = require('axios');
 const { callGeminiApi } = require('./geminiApi');
 
 async function createTrip(req, res) {
-  let { tripData, userEmails, category, description } = req.body;
+  let { tripData, userEmails, description } = req.body;
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -61,7 +61,7 @@ async function createTrip(req, res) {
       description: tripData.description,
       highlights: tripData.highlights,
       users: userIds,
-      category: category,
+      category: tripData.category,
       imageUrl: tripImageUrl,
       guide: selectedGuide._id,
     });
