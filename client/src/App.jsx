@@ -11,6 +11,7 @@ import Footer from "./components/Footer/Footer";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GuidesListing from "./Pages/Guides/Guides";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -72,9 +73,10 @@ const App = () => {
         <Route path="/trips" element={<CategoryTrips />} />
         <Route path="/trip/:id" element={<TripDetails />} />
         <Route path="/become-guide" element={<GuideRegistration />} />
+        <Route path="/guides" element={<GuidesListing/>} />
       </Routes>
 
-      <Footer />
+      <Footer />  
 
       {showLogin && (
         <LoginPopup

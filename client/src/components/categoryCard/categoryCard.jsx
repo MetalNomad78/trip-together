@@ -5,7 +5,6 @@ import "./categoryCard.css";
 const CategoryCard = ({ data }) => {
   const navigate = useNavigate();
 
-  // Consistent with AddTripPopup's categories
   const categoriesMapping = {
     "Beach Getaway": "beach_getaway",
     "Mountain Escape": "mountain_escape",
@@ -17,25 +16,17 @@ const CategoryCard = ({ data }) => {
     "Backpacking Adventure": "backpacking_adventure"
   };
 
-  const handleExplore = (e) => {
-    e.stopPropagation();
+  const handleExplore = () => {
     const apiCategory = categoriesMapping[data.title];
     if (apiCategory) {
       navigate(`/trips?category=${apiCategory}`);
     } else {
-      navigate('/trips');
+      navigate('/trips'); // Fallback if category not found
     }
   };
 
   return (
-    <div 
-      className="category-card"
-      onClick={handleExplore}
-      role="button"
-      tabIndex={0}
-      aria-label={`Explore ${data.title} trips`}
-      onKeyDown={(e) => e.key === 'Enter' && handleExplore(e)}
-    >
+    <div className="category-card" onClick={handleExplore}>
       <div className="card-image-container">
         <img 
           src={data.image} 
@@ -48,13 +39,12 @@ const CategoryCard = ({ data }) => {
       <div className="card-info">
         <h3 className="card-title">{data.title}</h3>
         <p className="card-description">{data.description}</p>
-        <button 
-          className="explore-button"
-          onClick={handleExplore}
-          aria-label={`Explore ${data.title}`}
-        >
+        <button className="explore-button" onClick={(e) => {
+          e.stopPropagation(); // Prevent triggering the card's onClick
+          handleExplore();
+        }}>
           Explore
-          <svg className="arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <svg className="arrow-icon" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         </button>

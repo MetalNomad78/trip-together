@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation , useNavigate  } from "react-router-dom";
 import axios from "axios";
 import "./CategoryTrips.css";
 
 const CategoryTripCard = ({ trip }) => {
   // Handle location data which can be string or object
+
+const navigate = useNavigate();
+
+
   const getLocationString = () => {
     if (typeof trip.location === 'string') return trip.location;
     if (trip.location?.city && trip.location?.state) {
@@ -49,10 +53,10 @@ const CategoryTripCard = ({ trip }) => {
           )}
         </div>
         
-        <button className="explore-button">
-          Explore Trip
-          <i className="fas fa-arrow-right"></i>
-        </button>
+            <button className="explore-button" onClick={() => navigate(`/trip/${trip._id}`)}>
+              Explore Trip
+              <i className="fas fa-arrow-right"></i>
+            </button>
       </div>
     </div>
   );
