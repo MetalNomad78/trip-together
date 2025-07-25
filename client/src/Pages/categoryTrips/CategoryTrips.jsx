@@ -7,9 +7,8 @@ const CategoryIntroCard = ({ trip }) => {
   return (
     <div className="trip-card">
       <div className="trip-image-container">
-        {/* Add a default image or use trip.image if available */}
         <img 
-          src={trip.image || "/images/default-trip.jpg"} 
+          src={trip.imageUrl || "/images/default-trip.jpg"} 
           alt={trip.name} 
           className="trip-image" 
         />
