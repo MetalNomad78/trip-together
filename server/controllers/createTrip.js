@@ -3,11 +3,8 @@ const Trip = require('../models/tripsSchema');
 const User = require('../models/userSchema');
 const Guide = require('../models/guideSchema');
 const AssignmentTracker = require('../models/assignmentTrackerSchema');
-const fs = require('fs');
-const path = require('path');
-const logoPath = path.join(__dirname, '../assets/tt_logo.png');
-const logoData = fs.readFileSync(logoPath).toString('base64');
-const base64Logo = `data:image/png;base64,${logoData}`;
+const sendMail = require('../utils/emailServiceUtil');
+const axios = require('axios');
 
 async function createTrip(req, res) {
   const { tripData, userEmails, category } = req.body;
@@ -37,7 +34,7 @@ async function createTrip(req, res) {
     const nextIndex = (tracker.lastAssignedIndex + 1) % guides.length;
     const selectedGuide = guides[nextIndex];
     console.log('Selected Guide1:', selectedGuide);
-
+    const tripImageUrl = await getImageFromText({ query: tripData.location });
     const trip = new Trip({
       name: tripData.name,
       location: tripData.location,
@@ -48,6 +45,7 @@ async function createTrip(req, res) {
       highlights: tripData.highlights,
       users: userIds,
       category: category,
+      imageUrl: tripImageUrl,
       guide: selectedGuide._id,
     });
 
@@ -72,7 +70,11 @@ async function createTrip(req, res) {
     await session.commitTransaction();
     session.endSession();
     try {
-      await sendGuideAndUserEmails();
+      await sendGuideAndUserEmails({
+        location: tripData.location,
+        guideEmail: selectedGuide.email,
+        userEmails: userEmails,
+      });
     } catch (error) {
       console.log('Error in sending EMAIL to guide and user', error);
     }
@@ -86,9 +88,10 @@ async function createTrip(req, res) {
   }
 }
 
-async function sendGuideAndUserEmails({ state, city, guideEmail, userEmails }) {
-  const guideHtml = generateGuideHtml({ state, city });
-  const userHtml = generateUserHtml({ state, city });
+async function sendGuideAndUserEmails({ location, guideEmail, userEmails }) {
+  console.log(location, guideEmail, userEmails);
+  const guideHtml = generateGuideHtml({ location });
+  const userHtml = generateUserHtml({ location });
 
   await sendMail({
     emailId: guideEmail,
@@ -105,32 +108,51 @@ async function sendGuideAndUserEmails({ state, city, guideEmail, userEmails }) {
   }
 }
 
-const generateGuideHtml = ({ state, city }) => `
-  <div style="font-family: Arial, sans-serif; color: #333;">
+const generateGuideHtml = ({ location }) => `
+  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; padding: 30px; border-radius: 10px; color: #333; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <div style="text-align: center; margin-bottom: 20px;">
-      <img src="${base64Logo}" alt="TripTogether Logo" style="height: 60px;" />
+      <img src="https://i.ibb.co/21nch0NW/tt-logo.png" alt="TripTogether Logo" style="height: 100px;" />
     </div>
-    <h2>📍 New Trip Assignment</h2>
-    <p>Hello Guide,</p>
-    <p>You have been <strong>assigned a new trip</strong>.</p>
-    <p><strong>Location:</strong> ${city}, ${state}</p>
-    <br/>
-    <p>Thanks,<br/>TripTogether Team</p>
+    <h2 style="color: #2980b9; text-align: center; margin-top: 0;">🚨 New Trip Assigned</h2>
+    <p style="font-size: 16px;">Hello Guide,</p>
+    <p style="font-size: 16px;">You have been <strong>assigned a new trip</strong>.</p>
+    <p style="font-size: 16px;"><strong>📍 Location:</strong> ${location}</p>
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;" />
+    <p style="font-size: 16px;">Thanks,<br/><strong>TripTogether Team</strong></p>
   </div>
 `;
 
-const generateUserHtml = ({ state, city }) => `
-  <div style="font-family: Arial, sans-serif; color: #333;">
+const generateUserHtml = ({ location }) => `
+  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; padding: 30px; border-radius: 10px; color: #333; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <div style="text-align: center; margin-bottom: 20px;">
-      <img src="${base64Logo}" alt="TripTogether Logo" style="height: 60px;" />
+      <img src="https://i.ibb.co/21nch0NW/tt-logo.png" alt="TripTogether Logo" style="height: 100px;" />
     </div>
-    <h2>🎒 Trip Created Successfully</h2>
-    <p>Hello Traveler,</p>
-    <p>Your trip to <strong>${city}, ${state}</strong> has been successfully created and assigned a guide.</p>
-    <p>We’re excited to see you explore new places with us!</p>
-    <br/>
-    <p>Bon voyage!<br/>TripTogether Team</p>
+    <h2 style="color: #27ae60; text-align: center; margin-top: 0;">✅ Trip Created</h2>
+    <p style="font-size: 16px;">Hello Traveler,</p>
+    <p style="font-size: 16px;">Your trip to <strong>${location}</strong> has been successfully created and a guide has been assigned.</p>
+    <p style="font-size: 16px;">We’re thrilled to be part of your adventure!</p>
+    <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;" />
+    <p style="font-size: 16px;">Bon voyage!<br/><strong>TripTogether Team</strong></p>
   </div>
 `;
+
+
+
+const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
+
+async function getImageFromText(reqBody) {
+  const { query } = reqBody;
+
+  const url = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&client_id=${ACCESS_KEY}`;
+
+  try {
+    const response = await axios.get(url);
+    const imageUrl = response.data?.urls?.regular;
+    return imageUrl || 'No image found';
+  } catch (error) {
+    console.error('Error fetching image from Unsplash:', error.message);
+    return null;
+  }
+}
 
 module.exports = createTrip;

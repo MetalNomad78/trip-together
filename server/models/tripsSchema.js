@@ -53,6 +53,10 @@ const tripSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Guide',
     },
+    imageUrl: {
+      type: String,
+      trim: true,
+    },
     users: [
       {
         type: mongoose.Schema.Types.ObjectId,
