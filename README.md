@@ -15,20 +15,19 @@ Plan personalized group trips across India with AI-powered recommendations, cura
 
 ---
 
-## 🌐 Live Demo
+# 🌐🌟 LIVE DEMO
 
-👉 [Live App Link](https://your-live-link.vercel.app)  
-_(Replace with your deployed URL)_
+# 👉 [🚀 trip-together-smoky.vercel.app](https://trip-together-smoky.vercel.app/)
+
+> Click the link above to try the app live!
 
 ---
 
 ## 📸 Screenshots
 
-| Home Page | AI Planner | Itinerary View |
+| Home Page | Signup/Login Page | Create Trip View | 
 |-----------|------------|----------------|
-| ![Home](screenshots/home.png) | ![Planner](screenshots/planner.png) | ![Itinerary](screenshots/itinerary.png) |
-
-_Add images to a `/screenshots` folder and update the paths above._
+| ![Home](https://i.imgur.com/L0AI9rc.png) | ![Signup/Login](https://i.imgur.com/Tx9iD9h.png) | ![Create](https://i.imgur.com/nXLZwIZ.png) |
 
 ---
 
