@@ -74,7 +74,7 @@ const MyTrips = () => {
   return (
     <div className="my-trips-container">
       <div className="my-trips-header">
-        <h2 className="my-trips-title">My Trips</h2>
+        <h2 className="my-trips-title">Your Adventure Journal</h2>
       </div>
 
       {loading ? (
