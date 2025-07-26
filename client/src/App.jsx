@@ -12,6 +12,8 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GuidesListing from "./Pages/Guides/Guides";
+import GetAllTrips from "./Pages/trips/Trips";
+
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -59,8 +61,8 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <Navbar 
-        setShowLogin={setShowLogin} 
+      <Navbar
+        setShowLogin={setShowLogin}
         isAuthenticated={isAuthenticated}
         onLogout={handleLogout}
       />
@@ -72,11 +74,12 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/trips" element={<CategoryTrips />} />
         <Route path="/trip/:id" element={<TripDetails />} />
+        <Route path="/getAlltrips" element={<GetAllTrips />} />
         <Route path="/become-guide" element={<GuideRegistration />} />
-        <Route path="/guides" element={<GuidesListing/>} />
+        <Route path="/guides" element={<GuidesListing />} />
       </Routes>
 
-      <Footer />  
+      <Footer />
 
       {showLogin && (
         <LoginPopup

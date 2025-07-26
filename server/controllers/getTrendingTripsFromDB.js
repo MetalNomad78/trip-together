@@ -24,11 +24,26 @@ const getTrendingTrips = async (req, res) => {
 
     const enrichedTrips = await Promise.all(
       trendingTrips.map(async trip => {
-        const image = await getImageFromText(trip.state);
-        return {
-          ...trip.toObject(),
-          image,
-        };
+        try {
+          const tripObj = trip.toObject();
+
+          if (tripObj.imageUrl) {
+            return tripObj;
+          }
+
+          const image = await getImageFromText(tripObj.state);
+
+          trip.imageUrl = image;
+          await trip.save();
+
+          return {
+            ...tripObj,
+            imageUrl: image,
+          };
+        } catch (error) {
+          console.error('Error enriching trip:', error);
+          return trip.toObject(); // fallback on error
+        }
       })
     );
 

@@ -28,8 +28,7 @@ const callGeminiApi = async prompt => {
       },
       approx_budget_inr: {
         type: 'number',
-        description:
-          'An approximate budget for the entire trip in Indian Rupees (INR), as a numerical value.',
+        description: 'An approximate budget for the entire trip in INR.',
       },
       category: {
         type: 'string',
@@ -43,7 +42,7 @@ const callGeminiApi = async prompt => {
           'desert_expedition',
           'backpacking_adventure',
         ],
-        description: 'The category that best describes this itinerary from the predefined list.',
+        description: 'The category that best describes this itinerary.',
       },
       trip_difficulty: {
         type: 'string',
@@ -52,51 +51,41 @@ const callGeminiApi = async prompt => {
       },
       duration_days: {
         type: 'integer',
-        description: 'The total duration of the trip in number of days.',
+        description: 'Total duration of the trip in days.',
         minimum: 1,
+      },
+      duration: {
+        type: 'string',
+        description: 'Trip duration in format like "5N/4D".',
+        pattern: '^\\d+N/\\d+D$',
       },
       highlights: {
         type: 'array',
-        description: 'A list of key attractions or experiences of the trip.',
+        description: 'List of key attractions or experiences.',
         items: {
           type: 'string',
         },
       },
       location: {
         type: 'object',
-        description: 'The geographical location of the primary destination.',
+        description: 'Primary destination location.',
         properties: {
-          city: {
-            type: 'string',
-            description: 'The city of the primary destination.',
-          },
-          state: {
-            type: 'string',
-            description: 'The state/province of the primary destination.',
-          },
-          country: {
-            type: 'string',
-            description: 'The country of the primary destination.',
-          },
+          city: { type: 'string' },
+          state: { type: 'string' },
+          country: { type: 'string' },
         },
         required: ['city', 'state'],
       },
       daily_plan: {
         type: 'array',
-        description: 'A list of daily activities for the itinerary.',
+        description: 'Daily activities for the itinerary.',
         items: {
           type: 'object',
           properties: {
-            day: {
-              type: 'integer',
-              description: 'The day number of the itinerary.',
-            },
+            day: { type: 'integer' },
             activities: {
               type: 'array',
-              description: 'A list of activities planned for the day.',
-              items: {
-                type: 'string',
-              },
+              items: { type: 'string' },
             },
           },
           required: ['day', 'activities'],
@@ -110,6 +99,7 @@ const callGeminiApi = async prompt => {
       'category',
       'trip_difficulty',
       'duration_days',
+      'duration',
       'highlights',
       'location',
       'daily_plan',

@@ -18,7 +18,7 @@ const getTripDetails = async (req, res) => {
 
     // Find specific trip by ID
     const trip = await Trip.findById(tripId.trim()).populate('guide').populate('users').exec();
-
+    console.log(trip);
     if (!trip) {
       console.log('⚠️ Trip not found with ID:', tripId);
       return res.code(404).send({

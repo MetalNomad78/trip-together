@@ -41,6 +41,15 @@ const tripSchema = new mongoose.Schema(
       type: Number,
       min: 1,
     },
+    itenary: {
+      type: [
+        {
+          day: Number,
+          activities: [String],
+        },
+      ],
+      default: [],
+    },
     category: {
       type: String,
       // enum: ["adventure", "cultural", "leisure", "wildlife", "religious"],

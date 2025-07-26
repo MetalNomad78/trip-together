@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaSearch, FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
-import { RiCompassDiscoverLine } from 'react-icons/ri';
-import './Navbar.css';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FaSearch,
+  FaUserCircle,
+  FaSignOutAlt,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
+import { RiCompassDiscoverLine } from "react-icons/ri";
+import "./Navbar.css";
 
 const Navbar = ({ setShowLogin }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,7 +24,7 @@ const Navbar = ({ setShowLogin }) => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userInfo");
     setToken("");
-    navigate('/');
+    navigate("/");
     setMobileMenuOpen(false);
   };
 
@@ -38,19 +44,31 @@ const Navbar = ({ setShowLogin }) => {
           {mobileMenuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
-        <ul className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
+        <ul className={`navbar-menu ${mobileMenuOpen ? "active" : ""}`}>
           <li>
-            <Link to="/home" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+            <Link
+              to="/home"
+              onClick={() => setMobileMenuOpen(false)}
+              className="navbar-link"
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link to="/trips" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+            <Link
+              to="/getAlltrips"
+              onClick={() => setMobileMenuOpen(false)}
+              className="navbar-link"
+            >
               Trips
             </Link>
           </li>
           <li>
-            <Link to="/guides" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+            <Link
+              to="/guides"
+              onClick={() => setMobileMenuOpen(false)}
+              className="navbar-link"
+            >
               Guides
             </Link>
           </li>
@@ -67,14 +85,19 @@ const Navbar = ({ setShowLogin }) => {
                 <FaUserCircle />
               </button>
               <div className="dropdown-content">
-                <Link to="/" onClick={logout}>Logout <FaSignOutAlt /> </Link>
-              
+                <Link to="/" onClick={logout}>
+                  Logout <FaSignOutAlt />{" "}
+                </Link>
               </div>
             </div>
           ) : (
-            <button className="auth-button" onClick={() => {setShowLogin(true)
-                    setToken(localStorage.getItem("authToken") || "");
-            }}>
+            <button
+              className="auth-button"
+              onClick={() => {
+                setShowLogin(true);
+                setToken(localStorage.getItem("authToken") || "");
+              }}
+            >
               <FaUserCircle /> Sign In
             </button>
           )}

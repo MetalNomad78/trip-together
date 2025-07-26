@@ -3,6 +3,18 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./tripDetails.css";
 
+
+const formatLocation = (location) => {
+  if (typeof location === "string") return location;
+  if (typeof location === "object" && location !== null) {
+    const { city, state, country } = location;
+    return [city, state, country].filter(Boolean).join(", ");
+  }
+  return "Unknown Location";
+};
+
+
+
 const TripDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -174,13 +186,13 @@ const TripDetails = () => {
               <div className="trip-meta">
                 <span className="location">
                   <svg className="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                   </svg>
-                  {trip.location}
+                  {formatLocation(trip.location)}
                 </span>
                 <span className="duration">
                   <svg className="icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z" />
                   </svg>
                   {trip.duration}
                 </span>
@@ -199,9 +211,13 @@ const TripDetails = () => {
             <div className="price-card">
               <div className="price-label">Trip Price</div>
               <div className="price-value">{trip.price}</div>
-                              <button className="join-btn" onClick={handleJoinTrip}>
-                <svg className="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+              <button className="join-btn" onClick={handleJoinTrip}>
+                <svg
+                  className="btn-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
                 </svg>
                 Join This Trip
               </button>
@@ -219,8 +235,12 @@ const TripDetails = () => {
               <div className="highlights-grid">
                 {trip.highlights.map((item, index) => (
                   <div key={index} className="highlight-item">
-                    <svg className="highlight-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                    <svg
+                      className="highlight-icon"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
                     </svg>
                     <span>{item}</span>
                   </div>
@@ -236,14 +256,18 @@ const TripDetails = () => {
               <div className="guide-profile">
                 <div className="guide-avatar">
                   <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
                   </svg>
                 </div>
                 <div className="guide-info">
                   <h3 className="guide-name">{trip.guide.name}</h3>
                   <div className="guide-contact">
-                    <svg className="contact-icon" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                    <svg
+                      className="contact-icon"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z" />
                     </svg>
                     <span>{trip.guide.phone}</span>
                   </div>
@@ -279,30 +303,39 @@ const TripDetails = () => {
 
       {/* Booking Modal */}
       {showBookingModal && (
-        <div className="modal-overlay" onClick={() => setShowBookingModal(false)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setShowBookingModal(false)}
+        >
           <div className="booking-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h2>Book Your Trip</h2>
-              <button 
+              <button
                 className="close-btn"
                 onClick={() => setShowBookingModal(false)}
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                  <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
                 </svg>
               </button>
             </div>
 
             <div className="booking-progress">
-              <div className={`progress-step ${bookingStep >= 1 ? 'active' : ''}`}>
+              <div
+                className={`progress-step ${bookingStep >= 1 ? "active" : ""}`}
+              >
                 <span>1</span>
                 <p>Details</p>
               </div>
-              <div className={`progress-step ${bookingStep >= 2 ? 'active' : ''}`}>
+              <div
+                className={`progress-step ${bookingStep >= 2 ? "active" : ""}`}
+              >
                 <span>2</span>
                 <p>Review</p>
               </div>
-              <div className={`progress-step ${bookingStep >= 3 ? 'active' : ''}`}>
+              <div
+                className={`progress-step ${bookingStep >= 3 ? "active" : ""}`}
+              >
                 <span>3</span>
                 <p>Payment</p>
               </div>
@@ -312,16 +345,23 @@ const TripDetails = () => {
               {bookingStep === 1 && (
                 <div className="step-content">
                   <h3>Trip Details</h3>
-                  
+
                   <div className="form-group">
                     <label>Number of Participants</label>
-                    <select 
+                    <select
                       value={bookingData.participants}
-                      onChange={(e) => handleInputChange('participants', parseInt(e.target.value))}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "participants",
+                          parseInt(e.target.value)
+                        )
+                      }
                       required
                     >
-                      {[1,2,3,4,5,6,7,8].map(num => (
-                        <option key={num} value={num}>{num} {num === 1 ? 'Person' : 'People'}</option>
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                        <option key={num} value={num}>
+                          {num} {num === 1 ? "Person" : "People"}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -332,7 +372,9 @@ const TripDetails = () => {
                       <input
                         type="text"
                         value={bookingData.firstName}
-                        onChange={(e) => handleInputChange('firstName', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("firstName", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -341,7 +383,9 @@ const TripDetails = () => {
                       <input
                         type="text"
                         value={bookingData.lastName}
-                        onChange={(e) => handleInputChange('lastName', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("lastName", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -353,7 +397,9 @@ const TripDetails = () => {
                       <input
                         type="email"
                         value={bookingData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -362,7 +408,9 @@ const TripDetails = () => {
                       <input
                         type="tel"
                         value={bookingData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("phone", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -374,7 +422,9 @@ const TripDetails = () => {
                       <input
                         type="text"
                         value={bookingData.emergencyContact}
-                        onChange={(e) => handleInputChange('emergencyContact', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("emergencyContact", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -383,7 +433,9 @@ const TripDetails = () => {
                       <input
                         type="tel"
                         value={bookingData.emergencyPhone}
-                        onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("emergencyPhone", e.target.value)
+                        }
                         required
                       />
                     </div>
@@ -393,7 +445,9 @@ const TripDetails = () => {
                     <label>Dietary Restrictions</label>
                     <textarea
                       value={bookingData.dietaryRestrictions}
-                      onChange={(e) => handleInputChange('dietaryRestrictions', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("dietaryRestrictions", e.target.value)
+                      }
                       placeholder="Any dietary restrictions or allergies..."
                       rows="3"
                     />
@@ -403,7 +457,9 @@ const TripDetails = () => {
                     <label>Special Requests</label>
                     <textarea
                       value={bookingData.specialRequests}
-                      onChange={(e) => handleInputChange('specialRequests', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("specialRequests", e.target.value)
+                      }
                       placeholder="Any special requests or needs..."
                       rows="3"
                     />
@@ -414,23 +470,37 @@ const TripDetails = () => {
               {bookingStep === 2 && (
                 <div className="step-content">
                   <h3>Review Your Booking</h3>
-                  
+
                   <div className="booking-summary">
                     <div className="trip-summary">
-                      <img src={trip.imageUrl} alt={trip.name} className="summary-image" />
+                      <img
+                        src={trip.imageUrl}
+                        alt={trip.name}
+                        className="summary-image"
+                      />
                       <div>
                         <h4>{trip.name}</h4>
-                        <p>{trip.location}</p>
+                        <p>{formatLocation(trip.location)}</p>
                         <p>{trip.duration}</p>
                       </div>
                     </div>
 
                     <div className="guest-info">
                       <h4>Guest Information</h4>
-                      <p><strong>Name:</strong> {bookingData.firstName} {bookingData.lastName}</p>
-                      <p><strong>Email:</strong> {bookingData.email}</p>
-                      <p><strong>Phone:</strong> {bookingData.phone}</p>
-                      <p><strong>Participants:</strong> {bookingData.participants}</p>
+                      <p>
+                        <strong>Name:</strong> {bookingData.firstName}{" "}
+                        {bookingData.lastName}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {bookingData.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {bookingData.phone}
+                      </p>
+                      <p>
+                        <strong>Participants:</strong>{" "}
+                        {bookingData.participants}
+                      </p>
                     </div>
 
                     <div className="insurance-option">
@@ -438,7 +508,9 @@ const TripDetails = () => {
                         <input
                           type="checkbox"
                           checked={bookingData.insurance}
-                          onChange={(e) => handleInputChange('insurance', e.target.checked)}
+                          onChange={(e) =>
+                            handleInputChange("insurance", e.target.checked)
+                          }
                         />
                         <span className="checkmark"></span>
                         Add Travel Insurance (+10% of trip cost)
@@ -447,22 +519,48 @@ const TripDetails = () => {
 
                     <div className="price-breakdown">
                       <div className="price-row">
-                        <span>Base Price ({bookingData.participants} × {trip.price})</span>
-                        <span>₹{(parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) * bookingData.participants).toLocaleString()}</span>
+                        <span>
+                          Base Price ({bookingData.participants} × {trip.price})
+                        </span>
+                        <span>
+                          ₹
+                          {(
+                            parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) *
+                            bookingData.participants
+                          ).toLocaleString()}
+                        </span>
                       </div>
                       {bookingData.insurance && (
                         <div className="price-row">
                           <span>Travel Insurance</span>
-                          <span>₹{(parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) * bookingData.participants * 0.1).toLocaleString()}</span>
+                          <span>
+                            ₹
+                            {(
+                              parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) *
+                              bookingData.participants *
+                              0.1
+                            ).toLocaleString()}
+                          </span>
                         </div>
                       )}
                       <div className="price-row">
                         <span>Taxes (18% GST)</span>
-                        <span>₹{(parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) * bookingData.participants * 0.18).toLocaleString()}</span>
+                        <span>
+                          ₹
+                          {(
+                            parseFloat(trip.price.replace(/[^0-9.-]+/g, "")) *
+                            bookingData.participants *
+                            0.18
+                          ).toLocaleString()}
+                        </span>
                       </div>
                       <div className="price-row total">
-                        <span><strong>Total Amount</strong></span>
-                        <span><strong>₹{calculateTotal().toLocaleString()}</strong></span>
+                        <span>
+                          <strong>Total Amount</strong>
+                        </span>
+                        <span>
+                          <strong>₹{calculateTotal().toLocaleString()}</strong>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -472,13 +570,15 @@ const TripDetails = () => {
               {bookingStep === 3 && (
                 <div className="step-content">
                   <h3>Payment</h3>
-                  
+
                   <div className="payment-section">
                     <div className="payment-summary">
                       <h4>Payment Summary</h4>
                       <div className="final-amount">
                         <span>Total Amount: </span>
-                        <span className="amount">₹{calculateTotal().toLocaleString()}</span>
+                        <span className="amount">
+                          ₹{calculateTotal().toLocaleString()}
+                        </span>
                       </div>
                     </div>
 
@@ -486,10 +586,19 @@ const TripDetails = () => {
                       <h4>Choose Payment Method</h4>
                       <div className="payment-options">
                         <label className="payment-option">
-                          <input type="radio" name="payment" value="card" defaultChecked />
+                          <input
+                            type="radio"
+                            name="payment"
+                            value="card"
+                            defaultChecked
+                          />
                           <div className="option-content">
-                            <svg className="payment-icon" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.11,4 20,4M20,18H4V12H20V18M20,8H4V6H20V8Z"/>
+                            <svg
+                              className="payment-icon"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.11,4 20,4M20,18H4V12H20V18M20,8H4V6H20V8Z" />
                             </svg>
                             <span>Credit/Debit Card</span>
                           </div>
@@ -497,8 +606,12 @@ const TripDetails = () => {
                         <label className="payment-option">
                           <input type="radio" name="payment" value="upi" />
                           <div className="option-content">
-                            <svg className="payment-icon" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z"/>
+                            <svg
+                              className="payment-icon"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6Z" />
                             </svg>
                             <span>UPI Payment</span>
                           </div>
@@ -506,8 +619,12 @@ const TripDetails = () => {
                         <label className="payment-option">
                           <input type="radio" name="payment" value="wallet" />
                           <div className="option-content">
-                            <svg className="payment-icon" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H20A2,2 0 0,0 18,8V16A2,2 0 0,0 20,18M20,8V16H18V8H20Z"/>
+                            <svg
+                              className="payment-icon"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                            >
+                              <path d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H20A2,2 0 0,0 18,8V16A2,2 0 0,0 20,18M20,8V16H18V8H20Z" />
                             </svg>
                             <span>Digital Wallet</span>
                           </div>
@@ -517,10 +634,16 @@ const TripDetails = () => {
 
                     <div className="payment-security">
                       <div className="security-info">
-                        <svg className="security-icon" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5H16.3V16.5H7.7V11.5H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                        <svg
+                          className="security-icon"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5H16.3V16.5H7.7V11.5H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z" />
                         </svg>
-                        <p>Your payment is secured with 256-bit SSL encryption</p>
+                        <p>
+                          Your payment is secured with 256-bit SSL encryption
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -529,25 +652,25 @@ const TripDetails = () => {
 
               <div className="modal-actions">
                 {bookingStep > 1 && (
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     className="btn-secondary"
                     onClick={() => setBookingStep(bookingStep - 1)}
                   >
                     Back
                   </button>
                 )}
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="btn-primary"
                   disabled={bookingLoading}
                 >
                   {bookingLoading ? (
                     <div className="loading-spinner-small"></div>
                   ) : bookingStep === 3 ? (
-                    'Pay Now'
+                    "Pay Now"
                   ) : (
-                    'Continue'
+                    "Continue"
                   )}
                 </button>
               </div>

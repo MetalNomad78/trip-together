@@ -20,31 +20,33 @@ const navigate = useNavigate();
   return (
     <div className="category-trip-card">
       <div className="trip-image-container">
-        <img 
-          src={trip.imageUrl || "/images/default-trip.jpg"} 
-          alt={trip.name} 
+        <img
+          src={trip.imageUrl || "/images/default-trip.jpg"}
+          alt={trip.name}
           className="trip-image"
           loading="lazy"
         />
         <div className="image-overlay"></div>
       </div>
-      
+
       <div className="trip-content">
         <div className="trip-header">
           <h3 className="trip-name">{trip.name}</h3>
-          <span className="trip-price">{trip.price || 'Price not specified'}</span>
+          <span className="trip-price">
+            {trip.price || "Price not specified"}
+          </span>
         </div>
-        
+
         <p className="trip-description">
-          {trip.description || 'No description available'}
+          {trip.description || "No description available"}
         </p>
-        
+
         <div className="trip-meta">
           <span className="meta-item">
             <i className="fas fa-map-marker-alt"></i> {getLocationString()}
           </span>
           <span className="meta-item">
-            <i className="fas fa-users"></i> {trip.userCount || 0} registered
+            <i className="fas fa-users"></i> {trip.users.length || 0} registered
           </span>
           {trip.duration && (
             <span className="meta-item">
@@ -52,11 +54,14 @@ const navigate = useNavigate();
             </span>
           )}
         </div>
-        
-            <button className="explore-button" onClick={() => navigate(`/trip/${trip._id}`)}>
-              Explore Trip
-              <i className="fas fa-arrow-right"></i>
-            </button>
+
+        <button
+          className="explore-button"
+          onClick={() => navigate(`/trip/${trip._id}`)}
+        >
+          Explore Trip
+          <i className="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   );
