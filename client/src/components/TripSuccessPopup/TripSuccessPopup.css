@@ -63,6 +63,21 @@
   margin-top: 1.5rem;
 }
 
+.my-trips-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  margin-left: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.my-trips-btn:hover {
+  background-color: #0056b3;
+}
+
 .ok-btn {
   padding: 0.6rem 1.2rem;
   background: #28a745;

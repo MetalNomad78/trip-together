@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./TripSuccessPopup.css";
 
 const TripSuccessPopup = ({ trip, onClose }) => {
+  const navigate = useNavigate();
+
   if (!trip) return null;
 
   const {
@@ -14,6 +17,11 @@ const TripSuccessPopup = ({ trip, onClose }) => {
     itenary,
     duration,
   } = trip;
+
+  const handleGoToMyTrips = () => {
+    onClose();
+    navigate("/mytrips");
+  };
 
   return (
     <div className="popup-overlay">
@@ -36,8 +44,7 @@ const TripSuccessPopup = ({ trip, onClose }) => {
           </p>
 
           <p>
-            <strong>🕒 Duration:</strong> {duration || "N/A"}{" "}
-            {/* ✅ New field */}
+            <strong>🕒 Duration:</strong> {duration || "N/A"}
           </p>
 
           <p>
@@ -85,6 +92,9 @@ const TripSuccessPopup = ({ trip, onClose }) => {
         <div className="popup-actions">
           <button onClick={onClose} className="ok-btn">
             OK
+          </button>
+          <button onClick={handleGoToMyTrips} className="my-trips-btn">
+            Go to My Trips
           </button>
         </div>
       </div>

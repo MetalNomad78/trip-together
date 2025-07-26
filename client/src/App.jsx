@@ -21,17 +21,21 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Check authentication status on app load
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    const userInfo = localStorage.getItem("userInfo");
+useEffect(() => {
+  const token = localStorage.getItem("authToken");
+  const userInfo = localStorage.getItem("userInfo");
 
-    if (token && userInfo) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+  if (token && userInfo) {
+    setIsAuthenticated(true);
+
+    // Redirect to /home if user is authenticated and currently at "/"
+    if (location.pathname === "/") {
+      navigate("/home", { replace: true });
     }
-  }, []);
+  } else {
+    setIsAuthenticated(false);
+  }
+}, [location.pathname, navigate]);
 
   // Handle successful login/signup
   const handleAuthSuccess = () => {

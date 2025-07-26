@@ -32,7 +32,6 @@
 //   fastify.log.info(`server listening on ${address}`);
 // });
 
-
 require('dotenv/config');
 
 const fastify = require('fastify')({
@@ -55,9 +54,7 @@ fastify.register(require('@fastify/multipart'));
 fastify.register(require('@fastify/cors'), {});
 
 // Register all routes
-routesRegister.forEach(route =>
-  fastify.register(require(path.resolve(__dirname, route)))
-);
+routesRegister.forEach(route => fastify.register(require(path.resolve(__dirname, route))));
 
 // 404 Handler
 fastify.setNotFoundHandler((request, reply) => {
@@ -70,7 +67,7 @@ fastify.setNotFoundHandler((request, reply) => {
 
 // PORT & HOST configuration
 const PORT = process.env.PORT || 5600;
-const HOST = process.env.RENDER ? '0.0.0.0' : (process.env.HOST || '127.0.0.1');
+const HOST = process.env.RENDER ? '0.0.0.0' : process.env.HOST || '127.0.0.1';
 
 // Start server
 fastify.listen({ port: PORT, host: HOST }, (err, address) => {
