@@ -18,7 +18,7 @@ const Navbar = ({ setShowLogin }) => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userInfo");
     setToken("");
-    navigate('/home');
+    navigate('/');
     setMobileMenuOpen(false);
   };
 
@@ -40,7 +40,7 @@ const Navbar = ({ setShowLogin }) => {
 
         <ul className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
           <li>
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
+            <Link to="/home" onClick={() => setMobileMenuOpen(false)} className="navbar-link">
               Home
             </Link>
           </li>
