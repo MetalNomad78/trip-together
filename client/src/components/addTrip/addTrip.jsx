@@ -601,7 +601,7 @@ const AddTripPopup = ({ onClose, onSave }) => {
 
             {/* Description Section */}
             <div className="form-section">
-              <h3>Trip Description*</h3>
+              <h3>Describe your perfect trip, and we'll plan it for you!</h3>
               <div className="form-group">
                 <textarea
                   name="description"
