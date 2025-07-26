@@ -6,16 +6,16 @@ import './Navbar.css';
 
 const Navbar = ({ setShowLogin }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState(localStorage.getItem("authToken") || "");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem("authToken");
     if (storedToken) setToken(storedToken);
-  }, []);
+  }, [token]);
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("authToken");
     localStorage.removeItem("userInfo");
     setToken("");
     navigate('/home');
@@ -61,7 +61,7 @@ const Navbar = ({ setShowLogin }) => {
             <FaSearch />
           </div>
 
-          {token ? (
+          {localStorage.getItem("authToken") ? (
             <div className="user-dropdown">
               <button className="user-button">
                 <FaUserCircle />
@@ -74,7 +74,9 @@ const Navbar = ({ setShowLogin }) => {
               </div>
             </div>
           ) : (
-            <button className="auth-button" onClick={() => setShowLogin(true)}>
+            <button className="auth-button" onClick={() => {setShowLogin(true)
+                    setToken(localStorage.getItem("authToken") || "");
+            }}>
               <FaUserCircle /> Sign In
             </button>
           )}
