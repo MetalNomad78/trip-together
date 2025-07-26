@@ -64,6 +64,7 @@ const LoginPopup = ({ setShowLogin, onAuthSuccess }) => {
           name: data.user?.name || form.name,
           email: data.user?.email || form.email
         }));
+        window.dispatchEvent(new Event("authChanged")); 
 
         toast.success(
           mode === "Login" 

@@ -15,11 +15,22 @@ const Navbar = ({ setShowLogin }) => {
   const [token, setToken] = useState(localStorage.getItem("authToken") || "");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
-    if (storedToken) setToken(storedToken);
-  }, [token]);
+ useEffect(() => {
+   const updateToken = () => {
+     const storedToken = localStorage.getItem("authToken");
+     setToken(storedToken || "");
+   };
 
+   // Run on mount
+   updateToken();
+
+   // Listen to custom event
+   window.addEventListener("authChanged", updateToken);
+
+   return () => {
+     window.removeEventListener("authChanged", updateToken);
+   };
+ }, []);
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("userInfo");
@@ -79,23 +90,33 @@ const Navbar = ({ setShowLogin }) => {
             <FaSearch />
           </div>
 
-          {localStorage.getItem("authToken") ? (
+          {token ? (
             <div className="user-dropdown">
-              <button className="user-button">
+              <button
+                className="user-button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
                 <FaUserCircle />
               </button>
               <div className="dropdown-content">
-                <Link to="/" onClick={logout}>
-                  Logout <FaSignOutAlt />{" "}
+                <Link
+                  to="/mytrips"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="dropdown-item"
+                >
+                  My Trips
+                </Link>
+                <Link to="/" onClick={logout} className="dropdown-item">
+                  Logout <FaSignOutAlt />
                 </Link>
               </div>
             </div>
           ) : (
             <button
-              className="auth-button"
+              className="auth-button sign-in"
               onClick={() => {
                 setShowLogin(true);
-                setToken(localStorage.getItem("authToken") || "");
               }}
             >
               <FaUserCircle /> Sign In

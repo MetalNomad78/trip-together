@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GuidesListing from "./Pages/Guides/Guides";
 import GetAllTrips from "./Pages/trips/Trips";
-
+import MyTrips from "./Pages/MyTrips/MyTrips";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -23,9 +23,9 @@ const App = () => {
 
   // Check authentication status on app load
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userInfo = localStorage.getItem('userInfo');
-    
+    const token = localStorage.getItem("authToken");
+    const userInfo = localStorage.getItem("userInfo");
+
     if (token && userInfo) {
       setIsAuthenticated(true);
     } else {
@@ -35,27 +35,27 @@ const App = () => {
 
   // Handle successful login/signup
   const handleAuthSuccess = () => {
-    console.log('Authentication successful, closing popup and navigating...');
+    console.log("Authentication successful, closing popup and navigating...");
     setIsAuthenticated(true);
     setShowLogin(false);
-    
+
     // Navigate to home page
     setTimeout(() => {
-      navigate('/home', { replace: true });
+      navigate("/home", { replace: true });
     }, 100);
   };
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userInfo");
     setIsAuthenticated(false);
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
   };
 
   // Close login popup
   const closeLoginPopup = () => {
-    console.log('Closing login popup...');
+    console.log("Closing login popup...");
     setShowLogin(false);
   };
 
@@ -72,6 +72,7 @@ const App = () => {
         <Route path="/" element={<Landing setShowLogin={setShowLogin} />} />
         {/* Main app pages */}
         <Route path="/home" element={<Home />} />
+        <Route path="/mytrips" element={<MyTrips />} />
         <Route path="/trips" element={<CategoryTrips />} />
         <Route path="/trip/:id" element={<TripDetails />} />
         <Route path="/getAlltrips" element={<GetAllTrips />} />
