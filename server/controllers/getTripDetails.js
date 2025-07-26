@@ -4,11 +4,11 @@ const getTripDetails = async (req, res) => {
   try {
     const { tripId } = req.body;
 
-    console.log("📩 Received tripId in request body:", tripId);
+    console.log('📩 Received tripId in request body:', tripId);
 
     // Handle invalid or missing tripId
     if (!tripId || typeof tripId !== 'string' || tripId.trim() === '') {
-      console.log("ℹ️ No valid tripId provided. Returning all trips...");
+      console.log('ℹ️ No valid tripId provided. Returning all trips...');
       const allTrips = await Trip.find();
       return res.code(200).send({
         success: true,
@@ -17,25 +17,21 @@ const getTripDetails = async (req, res) => {
     }
 
     // Find specific trip by ID
-    const trip = await Trip.findById(tripId.trim())
-      .populate('guide')
-      .populate('users')
-      .exec();
+    const trip = await Trip.findById(tripId.trim()).populate('guide').populate('users').exec();
 
     if (!trip) {
-      console.log("⚠️ Trip not found with ID:", tripId);
+      console.log('⚠️ Trip not found with ID:', tripId);
       return res.code(404).send({
         success: false,
         message: 'Trip not found',
       });
     }
 
-    console.log("✅ Trip found:", trip._id);
+    console.log('✅ Trip found:', trip._id);
     return res.code(200).send({
       success: true,
       data: trip,
     });
-
   } catch (err) {
     console.error('❌ Error fetching trip details:', err);
     return res.code(500).send({

@@ -29,19 +29,7 @@ const guidesData = [
     totalTrips: 156,
     speciality: "Coastal tours & water sports"
   },
-  { 
-    name: "Neha Sharma", 
-    phone: "9834567890", 
-    rating: 4.6, 
-    category: "Beach Getaway", 
-    img: "/guides/2.jpg",
-    experience: "5 years",
-    languages: ["Hindi", "English"],
-    price: "₹2,200/day",
-    verified: true,
-    totalTrips: 98,
-    speciality: "Beach photography & sunset tours"
-  },
+ 
   { 
     name: "Ravi Kapoor", 
     phone: "9123456780", 
@@ -54,86 +42,6 @@ const guidesData = [
     verified: false,
     totalTrips: 142,
     speciality: "Island hopping & snorkeling"
-  },
-  { 
-    name: "Sneha Patil", 
-    phone: "9812345678", 
-    rating: 4.5, 
-    category: "Beach Getaway", 
-    img: "/guides/4.jpg",
-    experience: "4 years",
-    languages: ["Hindi", "English", "Kannada"],
-    price: "₹2,000/day",
-    verified: true,
-    totalTrips: 87,
-    speciality: "Family beach vacations"
-  },
-  { 
-    name: "Aditya Iyer", 
-    phone: "9871234560", 
-    rating: 4.9, 
-    category: "Beach Getaway", 
-    img: "/guides/5.jpg",
-    experience: "10 years",
-    languages: ["Hindi", "English", "Tamil"],
-    price: "₹3,000/day",
-    verified: true,
-    totalTrips: 203,
-    speciality: "Luxury beach experiences"
-  },
-
-  // Mountain Escape
-  { 
-    name: "Tenzing Norbu", 
-    phone: "9856231478", 
-    rating: 4.9, 
-    category: "Mountain Escape", 
-    img: "/guides/6.jpg",
-    experience: "12 years",
-    languages: ["Hindi", "English", "Nepali"],
-    price: "₹3,500/day",
-    verified: true,
-    totalTrips: 289,
-    speciality: "High altitude trekking"
-  },
-  { 
-    name: "Meera Joshi", 
-    phone: "9845321670", 
-    rating: 4.7, 
-    category: "Mountain Escape", 
-    img: "/guides/7.jpg",
-    experience: "7 years",
-    languages: ["Hindi", "English"],
-    price: "₹2,800/day",
-    verified: true,
-    totalTrips: 167,
-    speciality: "Himalayan expeditions"
-  },
-  { 
-    name: "Amit Rana", 
-    phone: "9800123456", 
-    rating: 4.6, 
-    category: "Mountain Escape", 
-    img: "/guides/8.jpg",
-    experience: "9 years",
-    languages: ["Hindi", "English", "Punjabi"],
-    price: "₹2,700/day",
-    verified: false,
-    totalTrips: 198,
-    speciality: "Rock climbing & mountaineering"
-  },
-  { 
-    name: "Kabir Singh", 
-    phone: "9811122233", 
-    rating: 4.5, 
-    category: "Mountain Escape", 
-    img: "/guides/9.jpg",
-    experience: "6 years",
-    languages: ["Hindi", "English"],
-    price: "₹2,400/day",
-    verified: true,
-    totalTrips: 134,
-    speciality: "Valley tours & camping"
   },
   { 
     name: "Radha Rawat", 
