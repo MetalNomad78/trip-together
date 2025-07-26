@@ -67,10 +67,8 @@ const Navbar = ({ setShowLogin }) => {
                 <FaUserCircle />
               </button>
               <div className="dropdown-content">
-                <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>Profile</Link>
-                <button onClick={logout} className="logout-button">
-                  <FaSignOutAlt /> Logout
-                </button>
+                <Link to="/" onClick={logout}>Logout <FaSignOutAlt /> </Link>
+              
               </div>
             </div>
           ) : (
