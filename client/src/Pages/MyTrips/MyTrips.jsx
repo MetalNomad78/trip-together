@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { useNavigate } from "react-router-dom";
 
 import "react-loading-skeleton/dist/skeleton.css";
-import "./MyTrips.css"; // Add styles here if needed
+import "./MyTrips.css";
 
 const MyTrips = () => {
   const [trips, setTrips] = useState([]);
@@ -56,9 +56,26 @@ const MyTrips = () => {
     fetchTrips();
   }, []);
 
+  useEffect(() => {
+    const header = document.querySelector(".my-trips-header");
+
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        header.classList.add("shrink");
+      } else {
+        header.classList.remove("shrink");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="my-trips-container">
-      <h2>My Trips</h2>
+      <div className="my-trips-header">
+        <h2 className="my-trips-title">My Trips</h2>
+      </div>
 
       {loading ? (
         <Skeleton count={3} height={150} style={{ marginBottom: "1rem" }} />
@@ -82,7 +99,7 @@ const MyTrips = () => {
                 <div className="trip-header">
                   <h3 className="trip-name">{trip.name}</h3>
                   <span className="trip-price">
-                    {trip.price || "Price not specified"}
+                    ₹{trip.price || "Price not specified"}
                   </span>
                 </div>
 

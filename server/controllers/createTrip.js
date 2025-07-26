@@ -57,7 +57,7 @@ async function createTrip(req, res) {
       location: tripData.location,
       duration: tripData.duration,
       difficulty: tripData.difficulty,
-      price: `Rs. ${tripDetails.approx_budget_inr}`,
+      price: tripDetails.approx_budget_inr,
       itenary: tripDetails.daily_plan,
       description: tripData.description,
       highlights: tripData.highlights,
