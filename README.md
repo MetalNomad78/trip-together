@@ -25,13 +25,13 @@ Plan personalized group trips across India with AI-powered recommendations, cura
 
 ## 📸 Screenshots
 
-| Landing Page | Home Page | Login Page |
-|--------------|-----------|-------------------|
-| ![Landing](https://i.ibb.co/DPhrfjLG/Screenshot-2025-07-26-at-2-16-59-PM.png) | ![Home](https://i.ibb.co/sprbvd4f/Screenshot-2025-07-26-at-2-10-39-PM.png) | ![Login](https://i.ibb.co/xt2ykKPX/Screenshot-2025-07-26-at-2-17-07-PM.png) |
+| Landing Page | 
+|--------------|
+| ![Landing](https://i.ibb.co/DPhrfjLG/Screenshot-2025-07-26-at-2-16-59-PM.png) | 
 
-| Create Trip View |
-|------------------|
-| ![Create](https://i.ibb.co/pjwVpJYq/Screenshot-2025-07-26-at-2-10-55-PM.png) |
+| Home Page | Login Page | Create Trip View |
+|------------------|-----------|-------------------|
+| ![Home](https://i.ibb.co/sprbvd4f/Screenshot-2025-07-26-at-2-10-39-PM.png) | ![Login](https://i.ibb.co/xt2ykKPX/Screenshot-2025-07-26-at-2-17-07-PM.png) | ![Create](https://i.ibb.co/pjwVpJYq/Screenshot-2025-07-26-at-2-10-55-PM.png) |
 
 ---
 
