@@ -243,11 +243,11 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="header">
+      
         <button className="add-trip-btn" onClick={() => setShowAddTripPopup(true)}>
-          <span>+</span> Add Trip
+          <span>+</span> Plan you Journey
         </button>
-      </div>
+      
 
       <section className="trending-section">
         <h2 className="section-title">Trending Now</h2>

@@ -4,108 +4,102 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px 40px 60px;
-  background: linear-gradient(135deg, rgba(26, 42, 108, 0.02) 0%, rgba(255, 69, 0, 0.02) 100%);
+  background: linear-gradient(135deg, rgba(200, 210, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 100%);
 }
 
-/* Header/Button Styles - Enhanced Gradients */
-.header, .section-header {
+/* Header/Button Styles */
+.header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
-.add-trip-btn, .section-header h2 {
-  background: linear-gradient(135deg, #1a2a6c 0%, #2d4a9a 25%, #ff6b35 75%, #ff4500 100%);
-  color: white;
+.add-trip-btn {
+  background: linear-gradient(135deg, #e6e9ff 0%, #d0d6ff 50%, #b8c1ff 100%);
+  color: #4a4e69;
   border: none;
   border-radius: 30px;
   font-weight: 600;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(180, 190, 255, 0.3);
+  padding: 12px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
 }
 
-.add-trip-btn::before, .section-header h2::before {
+.add-trip-btn::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: left 0.5s;
 }
 
-.add-trip-btn:hover::before, .section-header h2:hover::before {
+.add-trip-btn:hover::before {
   left: 100%;
 }
 
-.add-trip-btn {
-  padding: 12px 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 15px rgba(26, 42, 108, 0.3), 0 2px 8px rgba(255, 69, 0, 0.2);
-}
-
-.section-header h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  padding: 0 20px;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background: linear-gradient(135deg, #1a2a6c 0%, #3d5aa8 30%, #ff8a50 70%, #ff4500 100%);
-}
-
-.add-trip-btn:hover, .section-header h2:hover {
+.add-trip-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26, 42, 108, 0.4), 0 4px 12px rgba(255, 69, 0, 0.3);
-  background: linear-gradient(135deg, #2d4a9a 0%, #1a2a6c 25%, #ff4500 75%, #e63900 100%);
+  box-shadow: 0 6px 20px rgba(180, 190, 255, 0.4);
+  background: linear-gradient(135deg, #d0d6ff 0%, #e6e9ff 50%, #c8d0ff 100%);
 }
 
-/* Title Styles - Enhanced Gradients */
-.section-title, .section-header h2 {
-  background: linear-gradient(135deg, #1a2a6c 0%, #ff6b35 100%);
+.add-trip-btn span {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Title Styles */
+.section-title {
+  background-image: linear-gradient(135deg, #8a96ff 0%, #d7dcff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
   position: relative;
-}
-
-.section-title {
   font-size: 1.8rem;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
 .section-title::after {
   content: '';
   position: absolute;
-  bottom: -5px;
-  left: 0;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #1a2a6c 0%, #ff6b35 100%);
+  background: linear-gradient(90deg, #a7b1ff 0%, #e6e9ff 100%);
   border-radius: 2px;
 }
 
-/* Image Carousel - Enhanced with Gradients */
+/* Trending Section */
+.trending-section {
+  margin-bottom: 60px;
+}
+
+/* Centered Image Carousel */
 .image-carousel {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  gap: 15px;
-  padding: 10px 0 20px;
+  gap: 20px;
+  padding: 20px;
   scrollbar-width: none;
-  margin-bottom: 15px;
-  background: linear-gradient(90deg, 
-    rgba(26, 42, 108, 0.05) 0%, 
-    transparent 20%, 
-    transparent 80%, 
-    rgba(255, 69, 0, 0.05) 100%);
-  border-radius: 10px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .image-carousel::-webkit-scrollbar {
@@ -114,14 +108,14 @@
 
 .image-card-container {
   position: relative;
-  min-width: 85%;
+  min-width: calc(100% - 40px);
   scroll-snap-align: center;
   border-radius: 15px;
   overflow: hidden;
   height: 450px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(26, 42, 108, 0.1);
-  border: 2px solid;
-  border-image: linear-gradient(135deg, #1a2a6c, #ff6b35) 1;
+  box-shadow: 0 8px 25px rgba(180, 190, 255, 0.2);
+  border: 2px solid rgba(230, 235, 255, 0.5);
+  transition: all 0.3s ease;
 }
 
 .image-card {
@@ -129,7 +123,6 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  transition: transform 0.5s ease;
   position: relative;
 }
 
@@ -140,252 +133,159 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.1) 0%, 
-    transparent 30%, 
-    transparent 70%, 
-    rgba(255, 69, 0, 0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  background: linear-gradient(to top, rgba(26, 42, 108, 0.4) 0%, transparent 60%);
 }
 
-.image-card:hover {
-  transform: scale(1.03);
+/* Image Overlay */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 60%);
+  z-index: 1;
 }
 
-.image-card:hover::before {
-  opacity: 1;
-}
-
-/* Trip Info - Enhanced Styling */
+/* Trip Info */
 .trip-info {
   position: absolute;
   bottom: 40px;
-  left: 30px;
+  left: 40px;
+  right: 40px;
   color: white;
-  max-width: 70%;
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.8) 0%, 
-    rgba(255, 69, 0, 0.6) 100%);
-  padding: 20px;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+  z-index: 2;
 }
 
 .trip-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 8px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  background: linear-gradient(135deg, #ffffff 0%, #ffd6cc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .trip-description {
-  font-size: 1rem;
-  line-height: 1.4;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-  color: rgba(255, 255, 255, 0.95);
-  
+  font-size: 1.1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Feature Cards - Enhanced Gradients */
-.feature-cards {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  background: linear-gradient(180deg, 
-    rgba(26, 42, 108, 0.02) 0%, 
-    rgba(255, 69, 0, 0.02) 50%,
-    rgba(26, 42, 108, 0.02) 100%);
-  border-radius: 20px;
-  padding: 20px;
-}
-
-.feature-card {
-  height: 400px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.05) 0%, 
-    rgba(255, 69, 0, 0.05) 100%);
-  border-radius: 15px;
-  border: 1px solid;
-  border-image: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.2), 
-    rgba(255, 69, 0, 0.2)) 1;
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(26, 42, 108, 0.15), 0 5px 15px rgba(255, 69, 0, 0.1);
-}
-
-/* Categories Section - Enhanced */
+/* Categories Section */
 .categories-section {
-  margin-top: 20px;
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.03) 0%, 
-    rgba(255, 69, 0, 0.03) 100%);
-  padding: 30px;
-  border-radius: 15px;
+  margin-top: 40px;
+  background: linear-gradient(135deg, rgba(200, 210, 255, 0.05) 0%, rgba(230, 235, 255, 0.05) 100%);
+  padding: 40px;
+  border-radius: 20px;
 }
 
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 
-.categories-grid > * {
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.08) 0%, 
-    rgba(255, 69, 0, 0.08) 100%);
-  border-radius: 10px;
-  padding: 20px;
-  border: 1px solid;
-  border-image: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.3), 
-    rgba(255, 69, 0, 0.3)) 1;
-  transition: all 0.3s ease;
-}
-
-.categories-grid > *:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(26, 42, 108, 0.12), 0 4px 12px rgba(255, 69, 0, 0.08);
-}
-
-/* Enhanced Overlay Styles */
-.image-overlay, .about-tt::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.image-overlay {
-  background: linear-gradient(to top, 
-    rgba(26, 42, 108, 0.8) 0%, 
-    rgba(26, 42, 108, 0.3) 30%,
-    rgba(255, 69, 0, 0.2) 70%,
-    rgba(255, 69, 0, 0.4) 100%);
-}
-
-/* Indicators - Enhanced with Gradients */
+/* Indicators - Centered */
 .image-indicator {
-  bottom: 15px;
   display: flex;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .indicator-dot {
-  background: linear-gradient(135deg, 
-    rgba(26, 42, 108, 0.5) 0%, 
-    rgba(255, 69, 0, 0.5) 100%);
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(200, 210, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .indicator-dot.active {
-  background: linear-gradient(135deg, #1a2a6c 0%, #ff4500 100%);
-  border-color: white;
+  background: #a7b1ff;
   transform: scale(1.2);
-  box-shadow: 0 0 10px rgba(26, 42, 108, 0.5), 0 0 5px rgba(255, 69, 0, 0.3);
+  box-shadow: 0 0 10px rgba(167, 177, 255, 0.7);
 }
 
-.indicator-dot:hover {
-  transform: scale(1.1);
-  background: linear-gradient(135deg, #2d4a9a 0%, #ff6b35 100%);
+/* Large Screens - Keep 4 columns for categories */
+@media (min-width: 1200px) {
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-/* Loading States with Gradients */
-.loading {
-  background: linear-gradient(90deg, 
-    rgba(26, 42, 108, 0.1) 0%, 
-    rgba(255, 69, 0, 0.2) 50%, 
-    rgba(26, 42, 108, 0.1) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+/* Medium Large Screens - 3 columns for categories */
+@media (max-width: 1199px) and (min-width: 1025px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Responsive Design - Unified Breakpoints */
-@media (max-width: 1024px) {
-  .home-container, .about-tt {
-    padding: 15px 30px 50px;
+/* Tablet Screens - 3 columns for categories */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
   
   .image-card-container {
-    height: 380px;
-  }
-  
-  .feature-card {
-    height: 350px;
-  }
-}
-
-@media (max-width: 768px) {
-  .home-container, .about-tt {
-    padding: 15px 20px 40px;
-  }
-  
-  .image-card-container {
-    min-width: 90%;
-    height: 320px;
+    height: 400px;
   }
   
   .trip-info {
+    left: 30px;
+    right: 30px;
     bottom: 30px;
+  }
+}
+
+/* Mobile Tablets - 2 columns */
+@media (max-width: 768px) and (min-width: 481px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .image-card-container {
+    height: 350px;
+    min-width: calc(100% - 30px);
+  }
+  
+  .trip-info {
     left: 20px;
-    padding: 15px;
+    right: 20px;
+    bottom: 20px;
+    padding: 20px;
   }
   
   .trip-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   
-  .feature-card {
-    flex-direction: column;
-    height: auto;
+  .section-title {
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .home-container, .about-tt {
-    padding: 10px 15px 30px;
-  }
-  
-  .image-card-container {
-    height: 280px;
-  }
-  
-  .trip-info {
-    max-width: 85%;
-    bottom: 20px;
-    left: 15px;
-    padding: 12px;
-  }
-  
-  .categories-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .add-trip-btn {
-    padding: 10px 18px;
-    font-size: 0.9rem;
-  }
+/* Keyframes for animations */
+@keyframes zoomIn {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Active image card animation */
+.image-card-container.active .image-card {
+  animation: zoomIn 3s ease-in-out;
 }
