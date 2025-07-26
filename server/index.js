@@ -7,6 +7,7 @@ const path = require('path');
 const routesRegister = require('./routes/routes-register.json');
 global.rootDir = __dirname;
 const connectDB = require('./connector/mongoConnector');
+const { config } = require('dotenv');
 connectDB();
 fastify.register(require('@fastify/multipart'));
 fastify.register(require('@fastify/cors'), {});
@@ -19,7 +20,9 @@ fastify.setNotFoundHandler((request, reply) => {
   });
 });
 
-fastify.listen({ port: 5600, host: '127.0.0.1' }, (err, address) => {
+const PORT = process.env.PORT || 5600;
+const HOST = process.env.HOST || '127.0.0.1';
+fastify.listen({ port: PORT, host: HOST }, (err, address) => {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
